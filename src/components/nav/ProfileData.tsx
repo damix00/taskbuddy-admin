@@ -10,6 +10,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { logout } from "@/actions/auth";
 
 export default function ProfileData() {
     return (
@@ -32,8 +33,8 @@ export default function ProfileData() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                     className="flex justify-between"
-                    onClick={() => {
-                        console.log("Clicked");
+                    onClick={async () => {
+                        await logout();
                     }}>
                     Log out
                     <LogOutIcon className="w-4 h-4" />

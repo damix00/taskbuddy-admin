@@ -83,7 +83,19 @@ export default function LoginForm() {
             <CardFooter>
                 <Button
                     onClick={form.handleSubmit(async (data) => {
-                        await login(data.email, data.password);
+                        const result = await login(data.email, data.password);
+
+                        if (!result.success) {
+                            form.setError("email", {
+                                type: "manual",
+                                message: "Invalid email or password",
+                            });
+
+                            form.setError("password", {
+                                type: "manual",
+                                message: "Invalid email or password",
+                            });
+                        }
                     })}
                     className="w-full">
                     Log in

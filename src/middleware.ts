@@ -1,4 +1,7 @@
-import { auth } from "@/lib/auth";
+import authConfig from "@/lib/auth/config";
+import NextAuth from "next-auth";
+
+const { auth } = NextAuth(authConfig);
 
 const loggedOutRoutes = ["/"];
 

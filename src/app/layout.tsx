@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
-import DashboardSidebar from "@/components/nav/Sidebar";
+import { auth } from "@/lib/auth/auth";
+import { SessionProvider } from "next-auth/react";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -11,16 +12,20 @@ export const metadata: Metadata = {
     description: "TaskBuddy admin dashboard",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const session = await auth();
+
     return (
-        <html lang="en">
-            <body className={`${montserrat.className} dark`}>
-                <Providers>{children}</Providers>
-            </body>
-        </html>
+        <SessionProvider session={session}>
+            <html lang="en">
+                <body className={`${montserrat.className} dark`}>
+                    <Providers>{children}</Providers>
+                </body>
+            </html>
+        </SessionProvider>
     );
 }

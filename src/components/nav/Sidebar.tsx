@@ -47,10 +47,25 @@ export default function DashboardSidebar(props: any) {
                 </nav>
             </aside>
             {/* Sidebar for mobile */}
-            <aside className="flex md:hidden top-0 left-0 w-14 h-screen bg-zinc-100 dark:bg-zinc-950 border-r p-2 z-30">
-                <Button variant="secondary" size="icon">
-                    <HomeIcon className="w-4 h-4" />
-                </Button>
+            <aside className="flex flex-col items-center md:hidden top-0 left-0 w-14 h-screen bg-zinc-100 dark:bg-zinc-950 border-r z-30">
+                <div className="border-b w-full flex justify-center items-center p-2">
+                    <ProfileData />
+                </div>
+                <nav className="w-full flex flex-col items-center">
+                    {items.map((item, index) => (
+                        <Link href={item.href} key={index}>
+                            <Button
+                                variant={
+                                    pathname === item.href
+                                        ? "secondary"
+                                        : "ghost"
+                                }
+                                size="icon">
+                                {item.icon}
+                            </Button>
+                        </Link>
+                    ))}
+                </nav>
             </aside>
         </>
     );

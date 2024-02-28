@@ -12,7 +12,7 @@ import {
 export default function Login() {
     return (
         <main>
-            <div className="flex items-center justify-center h-screen">
+            <div className="flex items-center justify-center min-h-screen py-4">
                 <LoginForm />
             </div>
         </main>

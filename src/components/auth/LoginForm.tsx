@@ -23,6 +23,8 @@ import { LoginFormSchema } from "@/schemas/login_form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as zod from "zod";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function LoginForm() {
     const form = useForm<zod.infer<typeof LoginFormSchema>>({
@@ -32,6 +34,8 @@ export default function LoginForm() {
             password: "",
         },
     });
+
+    const [loading, setLoading] = useState(false);
 
     return (
         <Card>
@@ -82,7 +86,10 @@ export default function LoginForm() {
             </CardContent>
             <CardFooter>
                 <Button
+                    disabled={loading}
                     onClick={form.handleSubmit(async (data) => {
+                        setLoading(true);
+
                         const result = await login(data.email, data.password);
 
                         if (!result.success) {
@@ -95,7 +102,11 @@ export default function LoginForm() {
                                 type: "manual",
                                 message: "Invalid email or password",
                             });
+                        } else {
+                            window.location.href = "/dashboard";
                         }
+
+                        setLoading(false);
                     })}
                     className="w-full">
                     Log in

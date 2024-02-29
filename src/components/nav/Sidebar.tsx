@@ -126,7 +126,7 @@ export default function DashboardSidebar(props: any) {
             </aside>
             {/* Sidebar for mobile */}
             <aside className="flex flex-col items-center md:hidden top-0 left-0 w-14 h-full bg-zinc-100 dark:bg-zinc-950 border-r z-30">
-                <div className="border-b w-full flex justify-center items-center p-2">
+                <div className="border-b w-full flex justify-center items-center p-2 h-14">
                     <ProfileData />
                 </div>
                 <nav className="w-full flex flex-col items-center gap-2 overflow-y-auto py-2">

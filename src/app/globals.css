@@ -7,6 +7,8 @@
         --background: 0 0% 100%;
         --foreground: 240 10% 3.9%;
 
+        --color-primary: #136fe7;
+
         --card: 0 0% 100%;
         --card-foreground: 240 10% 3.9%;
 
@@ -36,6 +38,8 @@
     }
 
     .dark {
+        --color-primary: #1fb8ff;
+
         --background: 240 10% 3.9%;
         --foreground: 0 0% 98%;
 

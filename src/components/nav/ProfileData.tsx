@@ -19,7 +19,7 @@ export default function ProfileData() {
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger className="w-full h-full md:block flex justify-center items-center">
+            <DropdownMenuTrigger className="w-full h-full md:block flex justify-center items-center md:min-h-0 min-h-14">
                 <div className="flex items-center border md:rounded-md rounded-full md:px-2 md:py-2 px-[2px] py-[2px] overflow-hidden">
                     <Avatar className="w-fit h-fit">
                         <AvatarImage
@@ -41,7 +41,12 @@ export default function ProfileData() {
                 </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-                <DropdownMenuLabel>Account</DropdownMenuLabel>
+                <DropdownMenuLabel>
+                    <p className="text-sm font-semibold">
+                        @{user.user?.username}
+                    </p>
+                    <p className="text-xs text-zinc-500">{user.user?.email}</p>
+                </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                     className="flex justify-between"

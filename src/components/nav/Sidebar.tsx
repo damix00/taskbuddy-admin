@@ -108,7 +108,7 @@ export default function DashboardSidebar(props: any) {
     return (
         <>
             {/* Sidebar for desktop */}
-            <aside className="hidden md:flex flex-col h-full inset-y-0 left-0 w-60 bg-zinc-100 dark:bg-zinc-950 border-r overflow-y-auto transition duration-300 z-30 flex-shrink-0">
+            <aside className="fixed hidden md:flex flex-col h-full inset-y-0 left-0 w-60 bg-zinc-100 dark:bg-zinc-950 border-r overflow-y-auto transition duration-300 z-30 flex-shrink-0">
                 <div className="border-b p-2 w-full h-14">
                     <ProfileData />
                 </div>
@@ -125,7 +125,7 @@ export default function DashboardSidebar(props: any) {
                 </nav>
             </aside>
             {/* Sidebar for mobile */}
-            <aside className="flex flex-col items-center md:hidden top-0 left-0 w-14 h-full bg-zinc-100 dark:bg-zinc-950 border-r z-30">
+            <aside className="fixed flex flex-col items-center md:hidden top-0 left-0 w-14 h-full bg-zinc-100 dark:bg-zinc-950/80 backdrop-blur-md border-r z-30">
                 <div className="border-b w-full flex justify-center items-center p-2 h-14">
                     <ProfileData />
                 </div>

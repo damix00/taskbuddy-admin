@@ -8,9 +8,11 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <div className="flex flex-row full-dvh h-screen">
-            <DashboardSidebar />
-            {children}
+        <div className="flex flex-row w-full">
+            <div className="full-dvh h-screen">
+                <DashboardSidebar />
+            </div>
+            <div className="ml-14 md:ml-60 w-full">{children}</div>
         </div>
     );
 }

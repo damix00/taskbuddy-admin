@@ -1,8 +1,6 @@
 import { Suspense } from "react";
 import Analytics from "./analytics";
 import { PageContent, TopBar, TopBarTitle } from "@/components/nav/TopBar";
-import { Card } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import { UserSkeleton } from "./data";
 
 function AnalyticsSkeleton() {

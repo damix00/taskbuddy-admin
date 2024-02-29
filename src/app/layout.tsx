@@ -8,7 +8,7 @@ import { SessionProvider } from "next-auth/react";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "TaskBuddy",
+    title: "TaskBuddy Dashboard",
     description: "TaskBuddy admin dashboard",
 };
 

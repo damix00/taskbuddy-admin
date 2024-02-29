@@ -1,6 +1,13 @@
 "use client";
 
-import { HomeIcon, UserIcon } from "lucide-react";
+import {
+    Flag,
+    LineChart,
+    LockKeyhole,
+    Newspaper,
+    Server,
+    User,
+} from "lucide-react";
 import { Button } from "../ui/button";
 import ProfileData from "./ProfileData";
 import Link from "next/link";
@@ -11,20 +18,90 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "../ui/tooltip";
+import { Separator } from "../ui/separator";
 
-export default function DashboardSidebar(props: any) {
+type Route = {
+    href: string;
+    label: string;
+    icon: React.ReactNode;
+};
+
+function SectionTitle({ children }: { children: React.ReactNode }) {
+    return (
+        <p className="text-xs md:pl-2 text-zinc-600 dark:text-zinc-400 font-semibold uppercase">
+            {children}
+        </p>
+    );
+}
+
+function RouteViewSmall({ href, label, icon }: Route) {
     const pathname = usePathname();
 
-    const items = [
+    return (
+        <Tooltip>
+            <TooltipTrigger asChild>
+                <Link href={href}>
+                    <Button
+                        variant={pathname === href ? "secondary" : "ghost"}
+                        size="icon">
+                        {icon}
+                    </Button>
+                </Link>
+            </TooltipTrigger>
+            <TooltipContent>{label}</TooltipContent>
+        </Tooltip>
+    );
+}
+
+function RouteView({ href, label, icon }: Route) {
+    const pathname = usePathname();
+
+    return (
+        <Link href={href}>
+            <Button
+                variant={pathname === href ? "secondary" : "ghost"}
+                size="full">
+                {icon}
+                {label}
+            </Button>
+        </Link>
+    );
+}
+
+export default function DashboardSidebar(props: any) {
+    const appItems: Route[] = [
         {
-            href: "/dashboard",
-            label: "Dashboard",
-            icon: <HomeIcon className="w-4 h-4" />,
+            href: "/dashboard/analytics",
+            label: "Analytics",
+            icon: <LineChart className="w-4 h-4" />,
         },
+        {
+            href: "/dashboard/server",
+            label: "Server",
+            icon: <Server className="w-4 h-4" />,
+        },
+        {
+            href: "/dashboard/killswitches",
+            label: "Killswitches",
+            icon: <LockKeyhole className="w-4 h-4" />,
+        },
+    ];
+
+    const contentItems: Route[] = [
         {
             href: "/dashboard/users",
             label: "Users",
-            icon: <UserIcon className="w-4 h-4" />,
+            icon: <User className="w-4 h-4" />,
+        },
+        {
+            href: "/dashboard/posts",
+            label: "Posts",
+            icon: <Newspaper className="w-4 h-4" />,
+        },
+        {
+            href: "/dashboard/reports",
+            label: "Reports",
+            icon: <Flag className="w-4 h-4" />,
         },
     ];
 
@@ -36,19 +113,14 @@ export default function DashboardSidebar(props: any) {
                     <ProfileData />
                 </div>
                 <nav className="flex flex-col p-2 gap-2">
-                    {items.map((item, index) => (
-                        <Link href={item.href} key={index}>
-                            <Button
-                                variant={
-                                    pathname === item.href
-                                        ? "secondary"
-                                        : "ghost"
-                                }
-                                size="full">
-                                {item.icon}
-                                {item.label}
-                            </Button>
-                        </Link>
+                    <SectionTitle>App settings</SectionTitle>
+                    {appItems.map((item, index) => (
+                        <RouteView {...item} key={`${index}-nav`} />
+                    ))}
+                    <Separator />
+                    <SectionTitle>Content</SectionTitle>
+                    {contentItems.map((item, index) => (
+                        <RouteView {...item} key={`${index}-nav-content`} />
                     ))}
                 </nav>
             </aside>
@@ -59,23 +131,20 @@ export default function DashboardSidebar(props: any) {
                 </div>
                 <nav className="w-full flex flex-col items-center gap-2 overflow-y-auto py-2">
                     <TooltipProvider>
-                        {items.map((item, index) => (
-                            <Tooltip key={`${index}-nav-mob`}>
-                                <TooltipTrigger asChild>
-                                    <Link href={item.href}>
-                                        <Button
-                                            variant={
-                                                pathname === item.href
-                                                    ? "secondary"
-                                                    : "ghost"
-                                            }
-                                            size="icon">
-                                            {item.icon}
-                                        </Button>
-                                    </Link>
-                                </TooltipTrigger>
-                                <TooltipContent>{item.label}</TooltipContent>
-                            </Tooltip>
+                        <SectionTitle>App</SectionTitle>
+                        {appItems.map((item, index) => (
+                            <RouteViewSmall
+                                {...item}
+                                key={`${index}-nav-mob`}
+                            />
+                        ))}
+                        <Separator />
+                        <SectionTitle>Data</SectionTitle>
+                        {contentItems.map((item, index) => (
+                            <RouteViewSmall
+                                {...item}
+                                key={`${index}-nav-content-mob`}
+                            />
                         ))}
                     </TooltipProvider>
                 </nav>

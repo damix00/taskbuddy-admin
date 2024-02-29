@@ -12,7 +12,6 @@ import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Maximize } from "lucide-react";
 import { Skeleton } from "../ui/skeleton";
-import { cn } from "@/lib/utils";
 import {
     Dialog,
     DialogContent,
@@ -20,7 +19,6 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "../ui/dialog";
-import { ScrollArea } from "../ui/scroll-area";
 
 interface ChartProps {
     title: string;
@@ -106,7 +104,10 @@ export default function Chart({
                     </div>
                     <Dialog>
                         <DialogTrigger asChild>
-                            <Button size="icon" variant="outline">
+                            <Button
+                                size="icon"
+                                className="ml-2"
+                                variant="outline">
                                 <Maximize size={16} />
                             </Button>
                         </DialogTrigger>

@@ -8,6 +8,7 @@ async function getData(): Promise<{
         users: {
             label: string;
             data: { x: string; y: number }[];
+            total_users: number;
         };
     };
     error: boolean;
@@ -25,6 +26,8 @@ async function getData(): Promise<{
                 },
             },
         });
+
+        const total_users = await db.users.count();
 
         // Format the data
         const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -44,6 +47,7 @@ async function getData(): Promise<{
                 users: {
                     label: "Users",
                     data: data,
+                    total_users,
                 },
             },
             error: false,

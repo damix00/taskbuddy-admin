@@ -50,10 +50,11 @@ function ChartDialog({ data, title }: { data: any; title: string }) {
             <DialogHeader>
                 <DialogTitle>{title}</DialogTitle>
             </DialogHeader>
-            <div className="flex items-center justify-center pt-4">
+            <div className="flex items-center justify-center">
                 <ResponsiveContainer
                     width={Math.min(window.innerWidth - 150, 700)}
-                    height={Math.min(window.innerHeight - 150, 400)}>
+                    height={Math.min(window.innerHeight - 150, 400)}
+                    className="mt-4">
                     <BarChart data={data}>
                         <Bar
                             type="monotone"
@@ -61,9 +62,10 @@ function ChartDialog({ data, title }: { data: any; title: string }) {
                             stroke="var(--color-primary)"
                             fill="var(--color-primary)"
                             shape={<RoundedBar />}
+                            label={{ position: "top" }}
                         />
-                        <XAxis dataKey="y" />
-                        <YAxis />
+                        <XAxis dataKey="y" allowDecimals={false} />
+                        <YAxis allowDecimals={false} />
                     </BarChart>
                 </ResponsiveContainer>
             </div>
@@ -131,8 +133,8 @@ export default function Chart({
                                     fill="var(--color-primary)"
                                     shape={<RoundedBar />}
                                 />
-                                <XAxis dataKey="y" />
-                                <YAxis />
+                                <XAxis dataKey="y" allowDecimals={false} />
+                                <YAxis allowDecimals={false} />
                             </BarChart>
                         </ResponsiveContainer>
                     ) : (

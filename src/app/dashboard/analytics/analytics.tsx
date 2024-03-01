@@ -32,8 +32,6 @@ async function getData(): Promise<{
     error: boolean;
 }> {
     try {
-        await sleep(1000);
-
         // Fetch data from the database, count users for every day of the current week
         const users = await db.users.groupBy({
             by: ["created_at"],

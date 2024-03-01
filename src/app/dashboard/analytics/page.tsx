@@ -1,15 +1,7 @@
 import { Suspense } from "react";
 import Analytics from "./analytics";
 import { PageContent, TopBar, TopBarTitle } from "@/components/nav/TopBar";
-import { UserSkeleton } from "./data";
-
-function AnalyticsSkeleton() {
-    return (
-        <div>
-            <UserSkeleton />
-        </div>
-    );
-}
+import AnalyticsData from "./data";
 
 export default function AnalyticsPage() {
     return (
@@ -18,7 +10,7 @@ export default function AnalyticsPage() {
                 <TopBarTitle>Analytics</TopBarTitle>
             </TopBar>
             <PageContent>
-                <Suspense fallback={<AnalyticsSkeleton />}>
+                <Suspense fallback={<AnalyticsData loading />}>
                     <Analytics />
                 </Suspense>
             </PageContent>

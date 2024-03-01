@@ -12,10 +12,20 @@ export const {
     session: { strategy: "jwt" },
     callbacks: {
         async session({ session, token }) {
+            if (!token) {
+                return session;
+            }
+
+            // @ts-ignore
+            if (token.user.role != "admin") {
+                return session;
+            }
+
             // @ts-ignore
             session.user = token.user;
             // @ts-ignore
             session.profile = token.profile;
+
             return session;
         },
 

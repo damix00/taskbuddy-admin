@@ -1,13 +1,6 @@
 import Chart from "@/components/data/Chart";
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
+import DataCard from "@/components/data/DataCard";
 import { Separator } from "@/components/ui/separator";
-import { Skeleton } from "@/components/ui/skeleton";
 
 interface AnalyticsData {
     charts?: {
@@ -35,36 +28,6 @@ interface AnalyticsData {
             total_messages: number;
         };
     };
-}
-
-function DataCard({
-    title,
-    value,
-    description,
-    loading = false,
-}: {
-    title: string;
-    value?: string | number;
-    description: string;
-    loading?: boolean;
-}) {
-    return (
-        <Card className="w-fit h-fit">
-            <CardHeader>
-                <p>{title}</p>
-                <CardTitle>
-                    {loading ? (
-                        <Skeleton className="w-12 h-6" />
-                    ) : (
-                        value?.toLocaleString()
-                    )}
-                </CardTitle>
-                <CardDescription>
-                    {loading ? <Skeleton className="w-28 h-4" /> : description}
-                </CardDescription>
-            </CardHeader>
-        </Card>
-    );
 }
 
 function Cards({

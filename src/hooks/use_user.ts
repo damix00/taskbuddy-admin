@@ -16,6 +16,7 @@ export default function useUser(): {
         profile_picture: string;
         bio: string;
     };
+    jwt?: string;
 } {
     const session = useSession();
 
@@ -24,5 +25,7 @@ export default function useUser(): {
         user: session.data?.user,
         // @ts-ignore
         profile: session.data?.profile,
+        // @ts-ignore
+        jwt: session.data?.jwt,
     };
 }

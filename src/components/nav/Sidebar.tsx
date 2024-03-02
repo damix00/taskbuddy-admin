@@ -80,11 +80,6 @@ export default function DashboardSidebar(props: any) {
             label: "Server",
             icon: <Server className="w-4 h-4" />,
         },
-        {
-            href: "/dashboard/killswitches",
-            label: "Killswitches",
-            icon: <LockKeyhole className="w-4 h-4" />,
-        },
     ];
 
     const contentItems: Route[] = [

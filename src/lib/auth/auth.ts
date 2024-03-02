@@ -2,6 +2,7 @@ import { API_URL } from "@/config";
 import NextAuth from "next-auth";
 import { db, getUserByEmail } from "@/lib/database/prisma";
 import config from "./config";
+import { signToken } from "@/utils/jwt";
 
 export const {
     handlers: { GET, POST },
@@ -9,9 +10,12 @@ export const {
     signIn,
     signOut,
 } = NextAuth({
-    session: { strategy: "jwt" },
+    session: {
+        strategy: "jwt",
+        maxAge: 7 * 24 * 60 * 60, // 7 days
+    },
     callbacks: {
-        async session({ session, token }) {
+        async session({ session, token, user }) {
             if (!token) {
                 return session;
             }
@@ -25,6 +29,8 @@ export const {
             session.user = token.user;
             // @ts-ignore
             session.profile = token.profile;
+            // @ts-ignore
+            session.jwt = token.jwt;
 
             return session;
         },
@@ -32,30 +38,32 @@ export const {
         async jwt({ token }) {
             if (!token.sub) return token;
 
-            const user = await getUserByEmail(token.email as string);
+            const dbUser = await getUserByEmail(token.email as string);
 
-            if (!user) {
+            if (!dbUser) {
                 return null;
             }
 
-            if (user.role != "admin") {
+            if (dbUser.role != "admin") {
                 return null;
             }
 
-            token.id = user.uuid;
+            token.jwt = token.name;
+            token.id = dbUser.uuid;
+
             token.user = {
-                uuid: user.uuid,
-                email: user.email,
-                username: user.username,
-                phone_number: user.phone_number,
-                last_login: user.last_login,
-                first_name: user.first_name,
-                last_name: user.last_name,
-                role: user.role,
-                created_at: user.created_at,
+                uuid: dbUser.uuid,
+                email: dbUser.email,
+                username: dbUser.username,
+                phone_number: dbUser.phone_number,
+                last_login: dbUser.last_login,
+                first_name: dbUser.first_name,
+                last_name: dbUser.last_name,
+                role: dbUser.role,
+                created_at: dbUser.created_at,
             };
 
-            const profile = user.profiles[0];
+            const profile = dbUser.profiles[0];
 
             token.profile = {
                 profile_picture: profile.profile_picture,

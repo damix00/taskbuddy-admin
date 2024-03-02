@@ -2,38 +2,37 @@ import { NextAuthConfig } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { comparePassword } from "@/lib/bcrypt";
 import { db } from "@/lib/database/prisma";
+import { API_URL } from "@/config";
 
 export default {
     providers: [
         CredentialsProvider({
             async authorize(credentials) {
-                const user = await db.users.findFirst({
-                    where: {
-                        email: credentials.email as string,
-                    },
-                    include: {
-                        profiles: true,
-                    },
-                });
+                try {
+                    const result = await fetch(`${API_URL}/v1/accounts/login`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(credentials),
+                    });
 
-                if (!user || user.role != "admin") {
+                    if (result.ok) {
+                        const data = await result.json();
+
+                        return {
+                            id: data.user.uuid,
+                            name: data.token,
+                            email: data.user.email,
+                        };
+                    }
+
+                    return null;
+                } catch (error) {
+                    console.error(error);
+
                     return null;
                 }
-
-                // Bcrypt is used to hash the password in the database
-                if (
-                    await comparePassword(
-                        credentials.password as string,
-                        user.password_hash
-                    )
-                ) {
-                    return {
-                        id: user.uuid,
-                        email: user.email,
-                    };
-                }
-
-                return null;
             },
         }),
     ],

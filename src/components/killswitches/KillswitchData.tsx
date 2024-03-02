@@ -122,11 +122,11 @@ const columns: ColumnDef<KillswitchEntry>[] = [
     },
     {
         accessorKey: "added_by",
-        header: "Added By",
+        header: "Updated by",
     },
     {
         accessorKey: "enabled_at",
-        header: "Enabled At",
+        header: "Updated at",
     },
 ];
 

@@ -66,7 +66,7 @@ async function getData(): Promise<KillswitchesData | null> {
                         ? `@${killswitchData?.users?.username}`
                         : "Unknown",
                     enabled_at: (
-                        killswitchData?.updated_at || new Date()
+                        killswitchData?.updated_at || "-"
                     ).toLocaleString(),
                 };
             }),

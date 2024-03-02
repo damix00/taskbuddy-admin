@@ -16,13 +16,13 @@ export function ServerCard({
             <DataCard
                 title="Server uptime"
                 value={Math.floor(parseInt(uptime || "0") / 3600) + " hours"}
-                description="The amount of time the server has been running"
+                description="The amount of time the server has been running."
                 loading={loading}
             />
             <DataCard
                 title="Server time"
                 value={new Date(server_time || 0).toLocaleString()}
-                description="The current time on the server"
+                description="The current time on the server."
                 loading={loading}
             />
         </>

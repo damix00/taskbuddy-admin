@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { auth } from "@/lib/auth/auth";
 import { SessionProvider } from "next-auth/react";
+import { Toaster } from "@/components/ui/toaster";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default async function RootLayout({
             <html lang="en">
                 <body className={`${montserrat.className} dark`}>
                     <Providers>{children}</Providers>
+                    <Toaster />
                 </body>
             </html>
         </SessionProvider>

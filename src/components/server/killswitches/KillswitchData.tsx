@@ -40,10 +40,13 @@ import { Button } from "../../ui/button";
 import useUser from "@/hooks/use_user";
 import { API_URL } from "@/config";
 import TableCard from "@/components/data/CustomTable";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 function EnabledCell({ row }: any) {
     const [enabled, setEnabled] = useState<boolean>(row.original.enabled);
     const [loading, setLoading] = useState(false);
+    const { toast } = useToast();
 
     const user = useUser();
 
@@ -91,7 +94,25 @@ function EnabledCell({ row }: any) {
                                         }
                                     );
 
-                                    setEnabled(!enabled);
+                                    if (!data) {
+                                        toast({
+                                            title: "Error",
+                                            description:
+                                                "There was an error toggling the killswitch.",
+                                        });
+                                    } else {
+                                        toast({
+                                            title: "Success",
+                                            description: `Killswitch "${
+                                                row.original.key
+                                            }"
+                                            ${
+                                                enabled ? "disabled" : "enabled"
+                                            } successfully.`,
+                                        });
+
+                                        setEnabled(!enabled);
+                                    }
                                 } catch (e) {
                                     console.error(e);
                                 } finally {

@@ -1,10 +1,9 @@
-import KillswitchData from "@/components/killswitches/KillswitchData";
+import KillswitchData from "@/components/server/killswitches/KillswitchData";
 import {
     KillswitchTypes,
     KillswitchesData,
-} from "@/components/killswitches/types";
+} from "@/components/server/killswitches/types";
 import { db } from "@/lib/database/prisma";
-import { sleep } from "@/utils/utils";
 
 async function getData(): Promise<KillswitchesData | null> {
     try {

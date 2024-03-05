@@ -1,5 +1,4 @@
 import DataCard from "@/components/data/DataCard";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { API_URL } from "@/config";
 
 export function ServerCard({

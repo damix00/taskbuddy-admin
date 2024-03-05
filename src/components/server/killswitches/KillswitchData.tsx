@@ -24,7 +24,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { useEffect, useState } from "react";
-import { Switch } from "../ui/switch";
+import { Switch } from "../../ui/switch";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -34,11 +34,12 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-} from "../ui/alert-dialog";
+} from "../../ui/alert-dialog";
 import { AlertDialogCancel } from "@radix-ui/react-alert-dialog";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import useUser from "@/hooks/use_user";
 import { API_URL } from "@/config";
+import TableCard from "@/components/data/CustomTable";
 
 function EnabledCell({ row }: any) {
     const [enabled, setEnabled] = useState<boolean>(row.original.enabled);
@@ -130,63 +131,6 @@ const columns: ColumnDef<KillswitchEntry>[] = [
     },
 ];
 
-function KillswitchTable({ data }: { data: KillswitchesData }) {
-    const table = useReactTable({
-        data: data!.killswitches,
-        columns,
-        getCoreRowModel: getCoreRowModel(),
-    });
-
-    return (
-        <Table>
-            <TableHeader>
-                {table.getHeaderGroups().map((headerGroup) => (
-                    <TableRow key={headerGroup.id}>
-                        {headerGroup.headers.map((header) => {
-                            return (
-                                <TableHead key={header.id}>
-                                    {header.isPlaceholder
-                                        ? null
-                                        : flexRender(
-                                              header.column.columnDef.header,
-                                              header.getContext()
-                                          )}
-                                </TableHead>
-                            );
-                        })}
-                    </TableRow>
-                ))}
-            </TableHeader>
-            <TableBody>
-                {table.getRowModel().rows?.length ? (
-                    table.getRowModel().rows.map((row) => (
-                        <TableRow
-                            key={row.id}
-                            data-state={row.getIsSelected() && "selected"}>
-                            {row.getVisibleCells().map((cell) => (
-                                <TableCell key={cell.id}>
-                                    {flexRender(
-                                        cell.column.columnDef.cell,
-                                        cell.getContext()
-                                    )}
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    ))
-                ) : (
-                    <TableRow>
-                        <TableCell
-                            colSpan={columns.length}
-                            className="h-24 text-center">
-                            No results.
-                        </TableCell>
-                    </TableRow>
-                )}
-            </TableBody>
-        </Table>
-    );
-}
-
 export default function KillswitchData({
     data,
     loading = false,
@@ -194,6 +138,12 @@ export default function KillswitchData({
     data?: KillswitchesData | null;
     loading: boolean;
 }) {
+    const table = useReactTable({
+        data: data?.killswitches || [],
+        columns,
+        getCoreRowModel: getCoreRowModel(),
+    });
+
     if ((!data || !data.killswitches) && !loading) {
         return (
             <Card>
@@ -207,46 +157,22 @@ export default function KillswitchData({
         );
     }
 
-    const [maxWidth, setMaxWidth] = useState(1e9);
-
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth < 768) {
-                setMaxWidth(window.innerWidth - 100);
-            } else {
-                setMaxWidth(window.innerWidth - 350);
-            }
-        };
-
-        window.addEventListener("resize", handleResize);
-
-        handleResize();
-
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
+    if (loading) {
+        return (
+            <TableCard
+                title="Killswitches"
+                description="This is a list of all killswitches. You can enable or disable them here."
+                loading
+            />
+        );
+    }
 
     return (
-        <Card
-            className="w-fit"
-            style={{
-                maxWidth,
-            }}>
-            <CardHeader>
-                <CardTitle>Killswitches</CardTitle>
-                <CardDescription>
-                    This is a list of all killswitches. You can enable or
-                    disable them here.
-                </CardDescription>
-            </CardHeader>
-            <CardContent>
-                {loading ? (
-                    <Skeleton className="w-full h-20" />
-                ) : (
-                    <KillswitchTable data={data!} />
-                )}
-            </CardContent>
-        </Card>
+        <TableCard
+            title="Killswitches"
+            description="This is a list of all killswitches. You can enable or disable them here."
+            table={table}
+            columns={columns}
+        />
     );
 }

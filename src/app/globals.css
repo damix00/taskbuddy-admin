@@ -98,3 +98,7 @@
         max-width: calc(100vw - 56px);
     }
 }
+
+.link:hover {
+    @apply underline;
+}

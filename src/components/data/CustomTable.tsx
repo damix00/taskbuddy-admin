@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/table";
 import {
     ColumnDef,
+    Row,
     Table as TableType,
     flexRender,
 } from "@tanstack/react-table";
@@ -28,7 +29,7 @@ export function CustomTable({
 }: {
     table: TableType<any>;
     columns: ColumnDef<any>[];
-    rowWrapper?: ComponentType<{ row: any; children: any }>;
+    rowWrapper?: ComponentType<{ row: Row<any>; children: any }>;
 }) {
     return (
         <Table>

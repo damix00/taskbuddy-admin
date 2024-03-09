@@ -1,7 +1,9 @@
 "use client";
 
 import {
+    CellContext,
     ColumnDef,
+    Row,
     getCoreRowModel,
     useReactTable,
 } from "@tanstack/react-table";
@@ -22,13 +24,11 @@ import {
 } from "../ui/context-menu";
 import Link from "next/link";
 import { copyText } from "@/utils/utils";
-import { useEffect, useState } from "react";
+import React from "react";
 import { useControl } from "@/hooks/use_shift";
 import { ExternalLink } from "lucide-react";
-
-function UUIDCell({ cell }: { cell: any }) {
-    return <div className="max-w-20 truncate">{cell.row.original.uuid}</div>;
-}
+import UUIDCell from "./cells/UUIDCell";
+import UsernameCell from "./cells/UsernameCell";
 
 const columns: ColumnDef<DisplayUser>[] = [
     {
@@ -43,6 +43,7 @@ const columns: ColumnDef<DisplayUser>[] = [
     {
         accessorKey: "username",
         header: "Username",
+        cell: UsernameCell,
     },
     {
         accessorKey: "email",
@@ -66,7 +67,13 @@ const columns: ColumnDef<DisplayUser>[] = [
     },
 ];
 
-function RowWrapper({ row, children }: { row: any; children: any }) {
+function RowWrapper({
+    row,
+    children,
+}: {
+    row: Row<DisplayUser>;
+    children: React.ReactNode;
+}) {
     const controlHeld = useControl();
 
     return (
@@ -76,16 +83,12 @@ function RowWrapper({ row, children }: { row: any; children: any }) {
                 <ContextMenuLabel>@{row.original.username}</ContextMenuLabel>
                 <ContextMenuSeparator />
                 <ContextMenuItem asChild>
-                    <div className="flex">
-                        <Link
-                            className="mr-2"
-                            href={`/dashboard/users/${row.original.uuid}`}>
-                            View profile
-                        </Link>
+                    <Link href={`/dashboard/users/${row.original.uuid}`}>
+                        View profile
                         {controlHeld && (
-                            <ExternalLink className="w-4 h-4 text-primary/50" />
+                            <ExternalLink className="ml-2 w-4 h-4 text-primary/50" />
                         )}
-                    </div>
+                    </Link>
                 </ContextMenuItem>
                 <ContextMenuSub>
                     <ContextMenuSubTrigger>Copy...</ContextMenuSubTrigger>
@@ -119,10 +122,12 @@ export default function UserTable({
     loading = false,
     users = [],
     page = 1,
+    pages = 1,
 }: {
     loading?: boolean;
     users?: UserRow[];
     page?: number;
+    pages?: number;
 }) {
     const table = useReactTable({
         data: users.map((user) => ({

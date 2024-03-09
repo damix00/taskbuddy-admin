@@ -88,3 +88,13 @@
         height: 100dvh;
     }
 }
+
+.max-w-content {
+    max-width: calc(100vw - 240px);
+}
+
+@media (max-width: 768px) {
+    .max-w-content {
+        max-width: calc(100vw - 56px);
+    }
+}

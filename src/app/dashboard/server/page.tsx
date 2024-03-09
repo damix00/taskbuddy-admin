@@ -1,9 +1,9 @@
 import { PageContent, TopBar, TopBarTitle } from "@/components/nav/TopBar";
 import { Suspense } from "react";
 import KillswitchData from "@/components/server/killswitches/KillswitchData";
-import Killswitches from "@/components/server/killswitches/Killswitches";
+import Killswitches from "@/components/server/killswitches/Killswitches.server";
 import ServerData, { ServerCard } from "../../../components/server/ServerData";
-import RemoteConfig from "@/components/server/remote_config/RemoteConfig";
+import RemoteConfig from "@/components/server/remote_config/RemoteConfig.server";
 import { Separator } from "@/components/ui/separator";
 import RemoteConfigData from "@/components/server/remote_config/RemoteConfigData";
 

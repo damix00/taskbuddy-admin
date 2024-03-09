@@ -12,7 +12,9 @@ export default function RootLayout({
             <div className="full-dvh h-screen">
                 <DashboardSidebar />
             </div>
-            <div className="ml-14 md:ml-60 w-full">{children}</div>
+            <div className="ml-14 md:ml-60 w-full max-w-content">
+                {children}
+            </div>
         </div>
     );
 }

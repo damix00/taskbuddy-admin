@@ -11,7 +11,7 @@ import {
     Table as TableType,
     flexRender,
 } from "@tanstack/react-table";
-import { useEffect, useState } from "react";
+import { ComponentType, useEffect, useState } from "react";
 import {
     Card,
     CardContent,
@@ -24,9 +24,11 @@ import { Skeleton } from "../ui/skeleton";
 export function CustomTable({
     table,
     columns,
+    rowWrapper,
 }: {
     table: TableType<any>;
     columns: ColumnDef<any>[];
+    rowWrapper?: ComponentType<{ row: any; children: any }>;
 }) {
     return (
         <Table>
@@ -50,20 +52,44 @@ export function CustomTable({
             </TableHeader>
             <TableBody>
                 {table.getRowModel().rows?.length ? (
-                    table.getRowModel().rows.map((row) => (
-                        <TableRow
-                            key={row.id}
-                            data-state={row.getIsSelected() && "selected"}>
-                            {row.getVisibleCells().map((cell) => (
-                                <TableCell key={cell.id}>
-                                    {flexRender(
-                                        cell.column.columnDef.cell,
-                                        cell.getContext()
-                                    )}
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    ))
+                    table.getRowModel().rows.map((row) => {
+                        if (rowWrapper) {
+                            const RowWrapper = rowWrapper;
+
+                            return (
+                                <RowWrapper key={row.id} row={row}>
+                                    <TableRow
+                                        key={row.id}
+                                        data-state={
+                                            row.getIsSelected() && "selected"
+                                        }>
+                                        {row.getVisibleCells().map((cell) => (
+                                            <TableCell key={cell.id}>
+                                                {flexRender(
+                                                    cell.column.columnDef.cell,
+                                                    cell.getContext()
+                                                )}
+                                            </TableCell>
+                                        ))}
+                                    </TableRow>
+                                </RowWrapper>
+                            );
+                        }
+                        return (
+                            <TableRow
+                                key={row.id}
+                                data-state={row.getIsSelected() && "selected"}>
+                                {row.getVisibleCells().map((cell) => (
+                                    <TableCell key={cell.id}>
+                                        {flexRender(
+                                            cell.column.columnDef.cell,
+                                            cell.getContext()
+                                        )}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        );
+                    })
                 ) : (
                     <TableRow>
                         <TableCell

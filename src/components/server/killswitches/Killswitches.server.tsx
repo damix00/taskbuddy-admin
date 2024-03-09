@@ -1,3 +1,5 @@
+"use server";
+
 import KillswitchData from "@/components/server/killswitches/KillswitchData";
 import {
     KillswitchTypes,

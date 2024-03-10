@@ -74,3 +74,29 @@ export type UserRow = {
     user: User;
     profile: Profile;
 };
+
+export function getDefaultParams(
+    params: URLSearchParams,
+    {
+        search,
+        sort_order,
+        sort_by,
+        page,
+        last_id,
+    }: {
+        search?: string;
+        sort_order?: string;
+        sort_by?: string;
+        page?: string;
+        last_id?: string;
+    }
+) {
+    const sortOrder = sort_order || params.get("sort_order") || "desc";
+    const sortBy = sort_by || params.get("sort_by") || "created_at";
+    const pageNum = page || params.get("page") || "1";
+    const lastId = last_id || params.get("last_id") || "0";
+
+    return `sort_order=${sortOrder}&sort_by=${sortBy}&page=${pageNum}&last_id=${lastId}${
+        search ? `&search=${search}` : ""
+    }`;
+}

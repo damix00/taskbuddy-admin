@@ -9,7 +9,7 @@ import {
 } from "@tanstack/react-table";
 import TableCard, { CustomTable } from "../data/CustomTable";
 import { Skeleton } from "../ui/skeleton";
-import { DisplayUser, UserRow } from "./types";
+import { DisplayUser, UserRow, getDefaultParams } from "./types";
 import { Card } from "@/components/ui/card";
 import {
     ContextMenu,
@@ -24,13 +24,22 @@ import {
 } from "../ui/context-menu";
 import Link from "next/link";
 import { copyText } from "@/utils/utils";
-import React from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import UUIDCell from "./cells/UUIDCell";
 import UsernameCell from "./cells/UsernameCell";
 import useMaxWidth from "@/hooks/use_max_width";
 import ActionsCell from "./cells/ActionsCell";
 import RoleCell from "./cells/RoleCell";
 import memoize from "@/hooks/custom_memo";
+import {
+    Pagination,
+    PaginationContent,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from "../ui/pagination";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const columns: ColumnDef<DisplayUser>[] = [
     {
@@ -74,10 +83,27 @@ const columns: ColumnDef<DisplayUser>[] = [
     },
 ];
 
-function TableContent({ table }: { table: any }) {
+function TableContent({
+    table,
+    page,
+    pages,
+    lastId,
+}: {
+    table: any;
+    page: number;
+    pages: number;
+    lastId?: number;
+}) {
     const maxWidth = useMaxWidth();
+    const params = useSearchParams();
+    const router = useRouter();
 
-    console.log({ maxWidth });
+    const getPageLink = (page: number) => {
+        return `/dashboard/users?${getDefaultParams(params, {
+            page: page.toString(),
+            search: params.get("search") || "",
+        })}`;
+    };
 
     return (
         <Card
@@ -85,6 +111,43 @@ function TableContent({ table }: { table: any }) {
                 maxWidth: `${maxWidth}px`,
             }}>
             <CustomTable columns={columns} table={table} />
+            {pages != 1 && (
+                <Pagination className="p-2 flex justify-end">
+                    <PaginationContent>
+                        {page != 1 && (
+                            <PaginationItem>
+                                <PaginationPrevious
+                                    href={getPageLink(page - 1)}
+                                />
+                            </PaginationItem>
+                        )}
+                        {page != 1 && (
+                            <PaginationItem>
+                                <PaginationLink href={getPageLink(page - 1)}>
+                                    {page - 1}
+                                </PaginationLink>
+                            </PaginationItem>
+                        )}
+                        <PaginationItem>
+                            <PaginationLink isActive href={getPageLink(page)}>
+                                {page}
+                            </PaginationLink>
+                        </PaginationItem>
+                        {page != pages && (
+                            <PaginationItem>
+                                <PaginationLink href={getPageLink(page + 1)}>
+                                    {page + 1}
+                                </PaginationLink>
+                            </PaginationItem>
+                        )}
+                        {page != pages && (
+                            <PaginationItem>
+                                <PaginationNext href={getPageLink(page + 1)} />
+                            </PaginationItem>
+                        )}
+                    </PaginationContent>
+                </Pagination>
+            )}
         </Card>
     );
 }
@@ -94,11 +157,13 @@ export default function UserTable({
     users,
     page = 1,
     pages = 1,
+    search = "",
 }: {
     loading?: boolean;
     users?: UserRow[];
     page?: number;
     pages?: number;
+    search?: string;
 }) {
     const table = memoize(
         () =>
@@ -116,8 +181,6 @@ export default function UserTable({
         [users]
     );
 
-    console.log("render");
-
     if (loading) {
         return (
             <Card>
@@ -126,5 +189,5 @@ export default function UserTable({
         );
     }
 
-    return <TableContent table={table} />;
+    return <TableContent page={page} pages={pages} table={table} />;
 }

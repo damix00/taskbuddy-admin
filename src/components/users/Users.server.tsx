@@ -9,11 +9,13 @@ async function getData({
     sortOrder,
     page,
     lastId,
+    query,
 }: {
     sortBy: string;
     sortOrder: string;
     page: number;
     lastId: number;
+    query: string;
 }): Promise<{
     users: UserRow[];
     pages: number;
@@ -33,14 +35,30 @@ async function getData({
                           id: {
                               lt: lastId,
                           },
+                          username: {
+                              contains: query,
+                              mode: "insensitive",
+                          },
                       }
-                    : {},
+                    : {
+                          username: {
+                              contains: query,
+                              mode: "insensitive",
+                          },
+                      },
             include: {
                 profiles: true,
             },
         });
 
-        const count = await db.users.count();
+        const count = await db.users.count({
+            where: {
+                username: {
+                    contains: query,
+                    mode: "insensitive",
+                },
+            },
+        });
 
         return {
             users: data.map((user) => {
@@ -117,6 +135,7 @@ interface UserDataProps {
     sortOrder?: string;
     page?: number;
     lastId?: number;
+    query?: string;
 }
 
 export default async function UserData({
@@ -124,8 +143,16 @@ export default async function UserData({
     sortOrder = "desc",
     page = 1,
     lastId = 0,
+    query = "",
 }: UserDataProps): Promise<any> {
-    const data = await getData({ sortBy, sortOrder, page, lastId });
+    const data = await getData({ sortBy, sortOrder, page, lastId, query });
 
-    return <UserTable users={data?.users} pages={data?.pages} />;
+    return (
+        <UserTable
+            search={query}
+            page={page}
+            users={data?.users}
+            pages={data?.pages}
+        />
+    );
 }

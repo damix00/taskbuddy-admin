@@ -21,6 +21,7 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "../ui/skeleton";
+import useMaxWidth from "@/hooks/use_max_width";
 
 export function CustomTable({
     table,
@@ -118,25 +119,10 @@ export default function TableCard({
     table?: TableType<any>;
     columns?: ColumnDef<any>[];
 }) {
-    const [maxWidth, setMaxWidth] = useState(1e9);
-
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth < 768) {
-                setMaxWidth(window.innerWidth - 100);
-            } else {
-                setMaxWidth(window.innerWidth - 350);
-            }
-        };
-
-        window.addEventListener("resize", handleResize);
-
-        handleResize();
-
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
+    const maxWidth = useMaxWidth({
+        subMaxWidth: 300,
+        subMaxWidthMobile: 100,
+    });
 
     return (
         <Card

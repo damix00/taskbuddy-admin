@@ -38,8 +38,11 @@ export type DisplayUser = {
     verified: boolean;
     limited_access: string[];
     deleted: boolean;
-    created_at: string;
-    updated_at: string;
+    created_at: Date;
+    updated_at: Date;
+    created_at_display: string;
+    updated_at_display: string;
+    profile: Profile;
 };
 
 export type Profile = {

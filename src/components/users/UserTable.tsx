@@ -7,7 +7,7 @@ import {
     getCoreRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import { CustomTable } from "../data/CustomTable";
+import TableCard, { CustomTable } from "../data/CustomTable";
 import { Skeleton } from "../ui/skeleton";
 import { DisplayUser, UserRow } from "./types";
 import { Card } from "@/components/ui/card";
@@ -25,10 +25,9 @@ import {
 import Link from "next/link";
 import { copyText } from "@/utils/utils";
 import React from "react";
-import { useControl } from "@/hooks/use_shift";
-import { ExternalLink } from "lucide-react";
 import UUIDCell from "./cells/UUIDCell";
 import UsernameCell from "./cells/UsernameCell";
+import useMaxWidth from "@/hooks/use_max_width";
 
 const columns: ColumnDef<DisplayUser>[] = [
     {
@@ -62,7 +61,7 @@ const columns: ColumnDef<DisplayUser>[] = [
         header: "Role",
     },
     {
-        accessorKey: "created_at",
+        accessorKey: "created_at_display",
         header: "Created At",
     },
 ];
@@ -74,8 +73,6 @@ function RowWrapper({
     row: Row<DisplayUser>;
     children: React.ReactNode;
 }) {
-    const controlHeld = useControl();
-
     return (
         <ContextMenu>
             <ContextMenuTrigger asChild>{children}</ContextMenuTrigger>
@@ -85,9 +82,6 @@ function RowWrapper({
                 <ContextMenuItem asChild>
                     <Link href={`/dashboard/users/${row.original.uuid}`}>
                         View profile
-                        {controlHeld && (
-                            <ExternalLink className="ml-2 w-4 h-4 text-primary/50" />
-                        )}
                     </Link>
                 </ContextMenuItem>
                 <ContextMenuSub>
@@ -132,23 +126,29 @@ export default function UserTable({
     const table = useReactTable({
         data: users.map((user) => ({
             ...user.user,
-            created_at: user.user.created_at.toDateString(),
-            updated_at: user.user.updated_at.toDateString(),
+            created_at_display: user.user.created_at.toDateString(),
+            updated_at_display: user.user.updated_at.toDateString(),
+            profile: user.profile,
         })),
         columns,
         getCoreRowModel: getCoreRowModel(),
     });
 
+    const maxWidth = useMaxWidth();
+
     if (loading) {
         return (
             <Card>
-                <Skeleton className="h-96 w-96" />
+                <Skeleton className="h-96 w-full" />
             </Card>
         );
     }
 
     return (
-        <Card>
+        <Card
+            style={{
+                maxWidth: `${maxWidth}px`,
+            }}>
             <CustomTable
                 rowWrapper={RowWrapper}
                 columns={columns}

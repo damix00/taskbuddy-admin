@@ -18,13 +18,15 @@ async function getData({
     users: UserRow[];
     pages: number;
 } | null> {
+    const itemsPerPage = 20;
+
     try {
         const data = await db.users.findMany({
             orderBy: {
                 [sortBy]: sortOrder,
             },
-            take: 20,
-            skip: (page - 1) * 20,
+            take: itemsPerPage,
+            skip: (page - 1) * itemsPerPage,
             where:
                 lastId > 0
                     ? {
@@ -102,7 +104,7 @@ async function getData({
                     },
                 };
             }),
-            pages: Math.ceil(count / 20),
+            pages: Math.ceil(count / itemsPerPage),
         };
     } catch (err) {
         console.error(err);

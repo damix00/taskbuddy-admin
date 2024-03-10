@@ -2,12 +2,10 @@
 
 import {
     Card,
-    CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import {
     ColumnDef,
     getCoreRowModel,
@@ -31,6 +29,7 @@ import { saveRemoteConfigValue } from "@/actions/firebase";
 import { useRef, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import memoize from "@/hooks/custom_memo";
 
 function ValueCell({ row }: any) {
     const { toast } = useToast();
@@ -165,11 +164,15 @@ export default function RemoteConfigData({
     data?: RemoteConfigTypes | null;
     loading?: boolean;
 }) {
-    const table = useReactTable({
-        data: data?.items || [],
-        columns,
-        getCoreRowModel: getCoreRowModel(),
-    });
+    const table = memoize(
+        () =>
+            useReactTable({
+                data: data?.items || [],
+                columns,
+                getCoreRowModel: getCoreRowModel(),
+            }),
+        [data]
+    );
 
     if ((!data || !data.items) && !loading) {
         return (

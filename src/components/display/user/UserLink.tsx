@@ -1,5 +1,7 @@
+import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Profile, User } from "@/components/users/types";
 import Link from "next/link";
+import UserHoverCard from "./UserHoverCard";
 
 export default function UserLink({
     user,
@@ -9,8 +11,13 @@ export default function UserLink({
     profile: Profile;
 }) {
     return (
-        <Link href={`/dashboard/users/${user.uuid}`}>
-            <div className="link">@{user.username}</div>
-        </Link>
+        <HoverCard>
+            <HoverCardTrigger>
+                <Link className="link" href={`/dashboard/users/${user.uuid}`}>
+                    @{user.username}
+                </Link>
+            </HoverCardTrigger>
+            <UserHoverCard user={user} profile={profile} />
+        </HoverCard>
     );
 }

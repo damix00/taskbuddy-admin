@@ -3,7 +3,13 @@ import UserTable from "@/components/users/UserTable";
 import UserData from "@/components/users/Users.server";
 import { Suspense } from "react";
 
-export default function UsersPage() {
+export default function UsersPage({
+    searchParams,
+}: {
+    searchParams: Record<string, string | undefined>;
+}) {
+    const page = parseInt(searchParams?.page || "1");
+
     return (
         <div className="w-full">
             <TopBar>

@@ -2,7 +2,6 @@
 
 import {
     Card,
-    CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
@@ -11,19 +10,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { KillswitchEntry, KillswitchesData } from "./types";
 import {
     ColumnDef,
-    flexRender,
     getCoreRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Switch } from "../../ui/switch";
 import {
     AlertDialog,
@@ -42,6 +32,7 @@ import { API_URL } from "@/config";
 import TableCard from "@/components/data/CustomTable";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import memoize from "@/hooks/custom_memo";
 
 function EnabledCell({ row }: any) {
     const [enabled, setEnabled] = useState<boolean>(row.original.enabled);
@@ -91,6 +82,7 @@ function EnabledCell({ row }: any) {
                                                 description:
                                                     row.original.description,
                                             }),
+                                            cache: "no-cache",
                                         }
                                     );
 
@@ -159,11 +151,15 @@ export default function KillswitchData({
     data?: KillswitchesData | null;
     loading: boolean;
 }) {
-    const table = useReactTable({
-        data: data?.killswitches || [],
-        columns,
-        getCoreRowModel: getCoreRowModel(),
-    });
+    const table = memoize(
+        () =>
+            useReactTable({
+                data: data?.killswitches || [],
+                columns,
+                getCoreRowModel: getCoreRowModel(),
+            }),
+        [data]
+    );
 
     if ((!data || !data.killswitches) && !loading) {
         return (

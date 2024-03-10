@@ -1,8 +1,8 @@
 import { HoverCardContent } from "@/components/ui/hover-card";
 import { Profile, User } from "../../users/types";
-import { CardDescription, CardTitle } from "../../ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import Link from "next/link";
+import { Separator } from "@/components/ui/separator";
 
 export default function UserHoverCard({
     user,
@@ -26,7 +26,14 @@ export default function UserHoverCard({
                         <div className="font-bold text-base truncate">
                             {user.first_name} {user.last_name}
                         </div>
-                        <div className="text-xs truncate">@{user.username}</div>
+                        <div className="text-xs text-muted-foreground truncate">
+                            @{user.username}
+                        </div>
+                        {profile.bio && (
+                            <div className="whitespace-normal text-sm pt-2">
+                                {profile.bio}
+                            </div>
+                        )}
                     </div>
                 </div>
             </Link>

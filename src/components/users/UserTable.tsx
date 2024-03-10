@@ -28,6 +28,9 @@ import React from "react";
 import UUIDCell from "./cells/UUIDCell";
 import UsernameCell from "./cells/UsernameCell";
 import useMaxWidth from "@/hooks/use_max_width";
+import ActionsCell from "./cells/ActionsCell";
+import RoleCell from "./cells/RoleCell";
+import memoize from "@/hooks/custom_memo";
 
 const columns: ColumnDef<DisplayUser>[] = [
     {
@@ -59,62 +62,36 @@ const columns: ColumnDef<DisplayUser>[] = [
     {
         accessorKey: "role",
         header: "Role",
+        cell: RoleCell,
     },
     {
         accessorKey: "created_at_display",
         header: "Created At",
     },
+    {
+        id: "actions",
+        cell: ActionsCell,
+    },
 ];
 
-function RowWrapper({
-    row,
-    children,
-}: {
-    row: Row<DisplayUser>;
-    children: React.ReactNode;
-}) {
+function TableContent({ table }: { table: any }) {
+    const maxWidth = useMaxWidth();
+
+    console.log({ maxWidth });
+
     return (
-        <ContextMenu>
-            <ContextMenuTrigger asChild>{children}</ContextMenuTrigger>
-            <ContextMenuContent>
-                <ContextMenuLabel>@{row.original.username}</ContextMenuLabel>
-                <ContextMenuSeparator />
-                <ContextMenuItem asChild>
-                    <Link href={`/dashboard/users/${row.original.uuid}`}>
-                        View profile
-                    </Link>
-                </ContextMenuItem>
-                <ContextMenuSub>
-                    <ContextMenuSubTrigger>Copy...</ContextMenuSubTrigger>
-                    <ContextMenuSubContent>
-                        <ContextMenuItem
-                            onClick={() => {
-                                copyText(row.original.uuid);
-                            }}>
-                            UUID
-                        </ContextMenuItem>
-                        <ContextMenuItem
-                            onClick={() => {
-                                copyText(row.original.username);
-                            }}>
-                            Username
-                        </ContextMenuItem>
-                        <ContextMenuItem
-                            onClick={() => {
-                                copyText(row.original.email);
-                            }}>
-                            Email
-                        </ContextMenuItem>
-                    </ContextMenuSubContent>
-                </ContextMenuSub>
-            </ContextMenuContent>
-        </ContextMenu>
+        <Card
+            style={{
+                maxWidth: `${maxWidth}px`,
+            }}>
+            <CustomTable columns={columns} table={table} />
+        </Card>
     );
 }
 
 export default function UserTable({
     loading = false,
-    users = [],
+    users,
     page = 1,
     pages = 1,
 }: {
@@ -123,18 +100,23 @@ export default function UserTable({
     page?: number;
     pages?: number;
 }) {
-    const table = useReactTable({
-        data: users.map((user) => ({
-            ...user.user,
-            created_at_display: user.user.created_at.toDateString(),
-            updated_at_display: user.user.updated_at.toDateString(),
-            profile: user.profile,
-        })),
-        columns,
-        getCoreRowModel: getCoreRowModel(),
-    });
+    const table = memoize(
+        () =>
+            useReactTable({
+                data:
+                    users?.map((user) => ({
+                        ...user.user,
+                        created_at_display: user.user.created_at.toDateString(),
+                        updated_at_display: user.user.updated_at.toDateString(),
+                        profile: user.profile,
+                    })) || [],
+                columns,
+                getCoreRowModel: getCoreRowModel(),
+            }),
+        [users]
+    );
 
-    const maxWidth = useMaxWidth();
+    console.log("render");
 
     if (loading) {
         return (
@@ -144,16 +126,5 @@ export default function UserTable({
         );
     }
 
-    return (
-        <Card
-            style={{
-                maxWidth: `${maxWidth}px`,
-            }}>
-            <CustomTable
-                rowWrapper={RowWrapper}
-                columns={columns}
-                table={table}
-            />
-        </Card>
-    );
+    return <TableContent table={table} />;
 }

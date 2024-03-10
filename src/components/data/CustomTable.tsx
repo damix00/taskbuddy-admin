@@ -26,11 +26,9 @@ import useMaxWidth from "@/hooks/use_max_width";
 export function CustomTable({
     table,
     columns,
-    rowWrapper,
 }: {
     table: TableType<any>;
     columns: ColumnDef<any>[];
-    rowWrapper?: ComponentType<{ row: Row<any>; children: any }>;
 }) {
     return (
         <Table>
@@ -55,28 +53,6 @@ export function CustomTable({
             <TableBody>
                 {table.getRowModel().rows?.length ? (
                     table.getRowModel().rows.map((row) => {
-                        if (rowWrapper) {
-                            const RowWrapper = rowWrapper;
-
-                            return (
-                                <RowWrapper key={row.id} row={row}>
-                                    <TableRow
-                                        key={row.id}
-                                        data-state={
-                                            row.getIsSelected() && "selected"
-                                        }>
-                                        {row.getVisibleCells().map((cell) => (
-                                            <TableCell key={cell.id}>
-                                                {flexRender(
-                                                    cell.column.columnDef.cell,
-                                                    cell.getContext()
-                                                )}
-                                            </TableCell>
-                                        ))}
-                                    </TableRow>
-                                </RowWrapper>
-                            );
-                        }
                         return (
                             <TableRow
                                 key={row.id}

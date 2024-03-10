@@ -2,7 +2,7 @@ import { API_URL } from "@/config";
 import NextAuth from "next-auth";
 import { db, getUserByEmail } from "@/lib/database/prisma";
 import config from "./config";
-import { signToken } from "@/utils/jwt";
+import { signToken, verifyToken } from "@/utils/jwt";
 
 export const {
     handlers: { GET, POST },
@@ -50,6 +50,27 @@ export const {
 
             token.jwt = token.name;
             token.id = dbUser.uuid;
+
+            const jwt = verifyToken(token.jwt as string);
+
+            if (!jwt) {
+                return null;
+            }
+
+            const newJwt = signToken({
+                id: parseInt(dbUser.id.toString()),
+                uuid: dbUser.uuid,
+                email: dbUser.email,
+                phone_number: dbUser.phone_number,
+                username: dbUser.username,
+                token_version: parseInt(
+                    dbUser.token_version?.toString() || "0"
+                ),
+                created_at: dbUser.created_at,
+                login_id: jwt.login_id,
+            });
+
+            token.jwt = newJwt;
 
             token.user = {
                 uuid: dbUser.uuid,

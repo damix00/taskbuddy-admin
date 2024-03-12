@@ -100,3 +100,13 @@ export function getDefaultParams(
         search ? `&search=${search}` : ""
     }`;
 }
+
+export function getParamValues(params: URLSearchParams) {
+    return {
+        search: params.get("search") || "",
+        sort_order: params.get("sort_order") || "desc",
+        sort_by: params.get("sort_by") || "created_at",
+        page: params.get("page") || "1",
+        last_id: params.get("last_id") || "0",
+    };
+}

@@ -40,33 +40,59 @@ import {
     PaginationPrevious,
 } from "../ui/pagination";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Button } from "../ui/button";
+import SortableHeader from "./cells/SortableHeader";
 
 const columns: ColumnDef<DisplayUser>[] = [
     {
         accessorKey: "id",
-        header: "ID",
+        header: ({ column }) => (
+            <SortableHeader columnKey="id" column={column} title="ID" />
+        ),
     },
     {
         accessorKey: "uuid",
-        header: "UUID",
+        header: ({ column }) => (
+            <SortableHeader columnKey="uuid" column={column} title="UUID" />
+        ),
         cell: UUIDCell,
     },
     {
         accessorKey: "username",
-        header: "Username",
+        header: ({ column }) => (
+            <SortableHeader
+                columnKey="username"
+                column={column}
+                title="Username"
+            />
+        ),
         cell: UsernameCell,
     },
     {
         accessorKey: "email",
-        header: "Email",
+        header: ({ column }) => (
+            <SortableHeader columnKey="email" column={column} title="Email" />
+        ),
     },
     {
         accessorKey: "first_name",
-        header: "First Name",
+        header: ({ column }) => (
+            <SortableHeader
+                columnKey="first_name"
+                column={column}
+                title="First Name"
+            />
+        ),
     },
     {
         accessorKey: "last_name",
-        header: "Last Name",
+        header: ({ column }) => (
+            <SortableHeader
+                columnKey="last_name"
+                column={column}
+                title="Last Name"
+            />
+        ),
     },
     {
         accessorKey: "role",
@@ -75,7 +101,13 @@ const columns: ColumnDef<DisplayUser>[] = [
     },
     {
         accessorKey: "created_at_display",
-        header: "Created At",
+        header: ({ column }) => (
+            <SortableHeader
+                columnKey="created_at"
+                column={column}
+                title="Created At"
+            />
+        ),
     },
     {
         id: "actions",

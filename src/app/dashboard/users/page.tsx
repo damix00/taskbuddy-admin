@@ -19,14 +19,14 @@ export default function UsersPage({
             </TopBar>
             <PageContent>
                 <div className="flex gap-2 flex-col">
-                    <div className="flex flex-col md:flex-row gap-4">
+                    <div className="flex flex-col md:flex-row gap-2">
                         <UserSearchField />
-                        <div className="hidden md:block">
+                        {/* <div className="hidden md:block">
                             <Separator
                                 orientation="vertical"
                                 className="h-full"
                             />
-                        </div>
+                        </div> */}
                     </div>
                     <Suspense
                         fallback={
@@ -39,6 +39,8 @@ export default function UsersPage({
                         <UserData
                             page={page}
                             query={searchParams.search || ""}
+                            sortBy={searchParams.sort_by || "created_at"}
+                            sortOrder={searchParams.sort_order || "desc"}
                         />
                     </Suspense>
                 </div>

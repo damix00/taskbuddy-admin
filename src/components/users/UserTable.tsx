@@ -1,30 +1,14 @@
 "use client";
 
 import {
-    CellContext,
     ColumnDef,
-    Row,
     getCoreRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import TableCard, { CustomTable } from "../data/CustomTable";
+import { CustomTable } from "../data/CustomTable";
 import { Skeleton } from "../ui/skeleton";
 import { DisplayUser, UserRow, getDefaultParams } from "./types";
 import { Card } from "@/components/ui/card";
-import {
-    ContextMenu,
-    ContextMenuContent,
-    ContextMenuItem,
-    ContextMenuLabel,
-    ContextMenuSeparator,
-    ContextMenuSub,
-    ContextMenuSubContent,
-    ContextMenuSubTrigger,
-    ContextMenuTrigger,
-} from "../ui/context-menu";
-import Link from "next/link";
-import { copyText } from "@/utils/utils";
-import React, { useCallback, useEffect, useRef } from "react";
 import UUIDCell from "./cells/UUIDCell";
 import UsernameCell from "./cells/UsernameCell";
 import useMaxWidth from "@/hooks/use_max_width";
@@ -40,7 +24,6 @@ import {
     PaginationPrevious,
 } from "../ui/pagination";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Button } from "../ui/button";
 import SortableHeader from "./cells/SortableHeader";
 
 const columns: ColumnDef<DisplayUser>[] = [

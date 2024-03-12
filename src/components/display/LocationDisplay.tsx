@@ -29,7 +29,7 @@ export default function LocationDisplay({
                 />
                 <Marker position={[lat, lon]} />
             </MapContainer>
-            <div className="w-full flex items-center text-card-foreground bg-zinc-900 rounded-b-lg p-2">
+            <div className="w-full flex items-center bg-zinc-900 rounded-b-lg p-2 text-sm">
                 {name}
             </div>
         </div>

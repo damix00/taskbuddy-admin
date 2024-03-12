@@ -42,7 +42,9 @@ function RouteViewSmall({ href, label, icon }: Route) {
             <TooltipTrigger asChild>
                 <Link href={href}>
                     <Button
-                        variant={pathname === href ? "secondary" : "ghost"}
+                        variant={
+                            pathname.startsWith(href) ? "secondary" : "ghost"
+                        }
                         size="icon">
                         {icon}
                     </Button>
@@ -59,7 +61,7 @@ function RouteView({ href, label, icon }: Route) {
     return (
         <Link href={href}>
             <Button
-                variant={pathname === href ? "secondary" : "ghost"}
+                variant={pathname.startsWith(href) ? "secondary" : "ghost"}
                 size="full">
                 {icon}
                 {label}

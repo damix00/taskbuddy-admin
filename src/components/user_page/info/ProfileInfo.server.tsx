@@ -36,6 +36,7 @@ export default async function ProfileInfoData({ uuid }: { uuid: string }) {
     const user = await getUser(uuid);
 
     if (!user) {
+        console.error("User not found");
         return notFound();
     }
 

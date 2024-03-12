@@ -11,10 +11,10 @@ export default function ProfileInfo({
     };
 }) {
     return (
-        <ScrollArea className="md:h-screen md:min-w-0 w-80 min-w-full border-b md:border-r">
+        <div className="md:overflow-y-auto md:h-screen md:min-w-0 w-80 min-w-full border-b md:border-r">
             <Suspense fallback={<ProfileInfoSkeleton />}>
                 <ProfileInfoData uuid={params.uuid} />
             </Suspense>
-        </ScrollArea>
+        </div>
     );
 }

@@ -1,5 +1,9 @@
 import { db } from "@/lib/database/prisma";
 import { UserRow, getUserResponse } from "../../users/types";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { notFound } from "next/navigation";
+import Biography from "./Biography";
+import ProfileLocation from "./Location";
 
 async function getUser(uuid: string): Promise<UserRow | null> {
     try {
@@ -31,5 +35,29 @@ async function getUser(uuid: string): Promise<UserRow | null> {
 export default async function ProfileInfoData({ uuid }: { uuid: string }) {
     const user = await getUser(uuid);
 
-    return <div>{user?.user.username}</div>;
+    if (!user) {
+        return notFound();
+    }
+
+    return (
+        <div className="flex flex-col px-8 py-8 md:py-12 items-center">
+            <Avatar className="w-24 h-24">
+                <AvatarImage src={user.profile.profile_picture} />
+                <AvatarFallback>
+                    {user.user.first_name?.[0] || ""}
+                    {user.user.last_name?.[0] || ""}
+                </AvatarFallback>
+            </Avatar>
+            <div className="text-md font-bold mt-2 whitespace-nowrap text-center">
+                {user.user.first_name} {user.user.last_name}
+            </div>
+            <div className="text-muted-foreground text-sm text-center">
+                @{user.user.username}
+            </div>
+            {user.profile.bio.length != 0 && <Biography user={user} />}
+            {user.profile.location.lat && user.profile.location.lat != 1000 && (
+                <ProfileLocation user={user} />
+            )}
+        </div>
+    );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
+import "./leaflet.css";
 import { Providers } from "./providers";
 import { auth } from "@/lib/auth/auth";
 import { SessionProvider } from "next-auth/react";

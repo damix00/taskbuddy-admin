@@ -12,12 +12,12 @@ export default async function Layout({
     const user = await auth();
 
     return (
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col md:flex-row md:max-h-screen">
             <div>{info}</div>
-            <div className="flex flex-col w-full">
+            <div className="flex flex-col w-full md:max-h-screen">
                 {/* @ts-ignore */}
                 <UserNavbar uuid={user?.user!.uuid} />
-                <ScrollArea>{children}</ScrollArea>
+                <div className="md:pt-14 md:overflow-y-auto">{children}</div>
             </div>
         </div>
     );

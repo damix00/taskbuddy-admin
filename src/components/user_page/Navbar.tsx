@@ -24,7 +24,7 @@ function NavbarLink({
 export default function UserNavbar({ uuid }: { uuid: string }) {
     return (
         <ScrollArea>
-            <div className="w-full h-14 border-b flex flex-row items-center justify-start px-4 gap-4 z-50">
+            <div className="static md:fixed bg-zinc-950/80 backdrop-blur-md md:top-0 w-full h-14 border-b flex flex-row items-center justify-start px-4 gap-4 z-50">
                 <NavbarLink href={`/dashboard/users/${uuid}`}>
                     Overview
                 </NavbarLink>

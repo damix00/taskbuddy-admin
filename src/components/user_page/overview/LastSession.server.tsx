@@ -12,6 +12,7 @@ import { db } from "@/lib/database/prisma";
 import { LastSession } from "./types";
 import LastSessionData from "./LastSessionData";
 
+// Returns information about the last session of a user
 async function getData({
     uuid,
 }: {
@@ -87,7 +88,16 @@ export default async function LastSession({ uuid }: { uuid: string }) {
     const data = await getData({ uuid });
 
     if (!data) {
-        return <div>No data</div>;
+        return (
+            <Card className="w-fit">
+                <CardHeader>
+                    <CardTitle>No data</CardTitle>
+                    <CardDescription>
+                        There is currently no session data available.
+                    </CardDescription>
+                </CardHeader>
+            </Card>
+        );
     }
 
     return <LastSessionData data={data} />;

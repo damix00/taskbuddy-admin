@@ -45,6 +45,8 @@ export default async function ProfileInfoData({ uuid }: { uuid: string }) {
         return notFound();
     }
 
+    const suspended = user.user.limited_access.includes("suspended");
+
     return (
         <div className="flex flex-col px-8 py-8 md:py-12 items-start">
             <div className="flex flex-col items-center w-full">
@@ -66,6 +68,11 @@ export default async function ProfileInfoData({ uuid }: { uuid: string }) {
                         <BadgeCheck size={16} color="var(--color-primary)" />
                     )}
                 </div>
+                {suspended && (
+                    <Badge className="mt-2" variant="destructive">
+                        Suspended
+                    </Badge>
+                )}
             </div>
             {user.profile.bio.length != 0 && <Biography user={user} />}
             {user.profile.location.lat && user.profile.location.lat != 1000 && (

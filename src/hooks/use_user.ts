@@ -1,7 +1,8 @@
 import { useSession } from "next-auth/react";
 
-export default function useUser(): {
+export interface UserCookie {
     user?: {
+        user_id: number;
         uuid: string;
         email: string;
         username: string;
@@ -17,7 +18,9 @@ export default function useUser(): {
         bio: string;
     };
     jwt?: string;
-} {
+}
+
+export default function useUser(): UserCookie {
     const session = useSession();
 
     return {

@@ -73,6 +73,7 @@ export const {
             token.jwt = newJwt;
 
             token.user = {
+                user_id: parseInt(dbUser.id.toString()),
                 uuid: dbUser.uuid,
                 email: dbUser.email,
                 username: dbUser.username,

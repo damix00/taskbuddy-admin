@@ -1,22 +1,24 @@
-import { ScrollArea } from "@/components/ui/scroll-area";
 import UserNavbar from "@/components/user_page/Navbar";
-import { auth } from "@/lib/auth/auth";
 
 export default async function Layout({
     children,
     info,
+    params,
 }: {
     children: React.ReactNode;
     info: React.ReactNode;
+    params: {
+        uuid: string;
+    };
 }) {
-    const user = await auth();
+    const uuid = params.uuid;
 
     return (
         <div className="flex flex-col md:flex-row md:max-h-screen">
             <div>{info}</div>
             <div className="flex flex-col w-full md:max-h-screen">
                 {/* @ts-ignore */}
-                <UserNavbar uuid={user?.user!.uuid} />
+                <UserNavbar uuid={uuid} />
                 <div className="md:pt-14 md:overflow-y-auto">{children}</div>
             </div>
         </div>

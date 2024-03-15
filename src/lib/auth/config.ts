@@ -20,6 +20,10 @@ export default {
                     if (result.ok) {
                         const data = await result.json();
 
+                        if (data.user.role != "admin") {
+                            return null;
+                        }
+
                         return {
                             id: data.user.uuid,
                             name: data.token,

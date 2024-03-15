@@ -11,7 +11,7 @@ export default function LocationDisplay({
     width = "100%",
     height = "100%",
 }: {
-    name: string;
+    name?: string;
     lat: number;
     lon: number;
     width?: string;
@@ -29,9 +29,11 @@ export default function LocationDisplay({
                 />
                 <Marker position={[lat, lon]} />
             </MapContainer>
-            <div className="w-full flex items-center bg-zinc-900 rounded-b-lg p-2 text-sm">
-                {name}
-            </div>
+            {name && (
+                <div className="w-full flex items-center bg-zinc-900 rounded-b-lg p-2 text-sm">
+                    {name}
+                </div>
+            )}
         </div>
     );
 }

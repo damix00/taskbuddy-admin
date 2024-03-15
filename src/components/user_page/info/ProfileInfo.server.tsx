@@ -48,7 +48,7 @@ export default async function ProfileInfoData({ uuid }: { uuid: string }) {
     const suspended = user.user.limited_access.includes("suspended");
 
     return (
-        <div className="flex flex-col px-8 py-8 md:py-12 items-start">
+        <div className="flex flex-col px-8 py-8 lg:py-12 items-start">
             <div className="flex flex-col items-center w-full">
                 <Avatar className="w-24 h-24">
                     <AvatarImage src={user.profile.profile_picture} />

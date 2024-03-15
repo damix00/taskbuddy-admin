@@ -11,7 +11,7 @@ export default function ProfileInfo({
     };
 }) {
     return (
-        <div className="md:overflow-y-auto md:h-screen md:min-w-0 w-80 min-w-full border-b md:border-r">
+        <div className="lg:overflow-y-auto lg:h-screen lg:min-w-0 w-80 min-w-full border-b lg:border-r">
             <Suspense fallback={<ProfileInfoSkeleton />}>
                 <ProfileInfoData uuid={params.uuid} />
             </Suspense>

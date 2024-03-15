@@ -1,4 +1,6 @@
-import LastLocation from "@/components/user_page/overview/LastLocation.server";
+import CardSkeleton from "@/components/display/CardSkeleton";
+import LastSession from "@/components/user_page/overview/LastSession.server";
+import { Suspense } from "react";
 
 export default function Page({
     params,
@@ -7,5 +9,11 @@ export default function Page({
         uuid: string;
     };
 }) {
-    return <LastLocation uuid={params.uuid} />;
+    return (
+        <div className="p-4">
+            <Suspense fallback={<CardSkeleton count={3} />}>
+                <LastSession uuid={params.uuid} />
+            </Suspense>
+        </div>
+    );
 }

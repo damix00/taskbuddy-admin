@@ -11,6 +11,7 @@ import { LastSession } from "./types";
 import LocationDisplay from "@/components/display/LocationDisplay";
 import useMaxWidth from "@/hooks/use_max_width";
 import DataCard from "@/components/data/DataCard";
+import { timeAgo } from "@/utils/utils";
 
 export default function LastSessionData({ data }: { data: LastSession }) {
     return (
@@ -39,7 +40,7 @@ export default function LastSessionData({ data }: { data: LastSession }) {
             <DataCard
                 title="Last online"
                 description="The last time the user was online."
-                value={new Date(data.time).toLocaleString()}
+                value={timeAgo(data.time)}
             />
             <DataCard
                 title="Session count"

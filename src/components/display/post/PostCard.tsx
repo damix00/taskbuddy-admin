@@ -22,7 +22,9 @@ export default function PostCard({ post }: { post: Post }) {
                         @{post.user.username} · {timeAgo(post.created_at)}
                     </div>
                     <CardTitle>{post.title}</CardTitle>
-                    <CardDescription>{post.description}</CardDescription>
+                    <CardDescription className="whitespace-pre-line">
+                        {post.description}
+                    </CardDescription>
                     <div className="flex gap-2 w-full flex-wrap">
                         {post.post_removals.removed && (
                             <Badge variant="destructive">Removed</Badge>

@@ -5,6 +5,7 @@ import { db } from "@/lib/database/prisma";
 import { API_URL } from "@/config";
 
 export default {
+    trustHost: true,
     providers: [
         CredentialsProvider({
             async authorize(credentials) {

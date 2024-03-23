@@ -7,6 +7,11 @@ const nextConfig = {
                 destination: "/dashboard/analytics",
                 permanent: true,
             },
+            {
+                source: "/dashboard/users/:uuid/manage",
+                destination: "/dashboard/users/:uuid/manage/security",
+                permanent: true,
+            },
         ];
     },
     typescript: {

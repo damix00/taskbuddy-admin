@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { BadgeCheck } from "lucide-react";
 import AccountInformation from "./AccountInformation";
 import ProfileInformation from "./ProfileInformation";
+import { UserContextCreator } from "@/context/user_context";
 
 async function getUser(uuid: string): Promise<UserRow | null> {
     try {
@@ -49,6 +50,7 @@ export default async function ProfileInfoData({ uuid }: { uuid: string }) {
 
     return (
         <div className="flex flex-col px-8 py-8 lg:py-12 items-start">
+            <UserContextCreator user={user} />
             <div className="flex flex-col items-center w-full">
                 <Avatar className="w-24 h-24">
                     <AvatarImage src={user.profile.profile_picture} />

@@ -55,7 +55,7 @@ function RouteViewSmall({ href, label, icon }: Route) {
     );
 }
 
-function RouteView({ href, label, icon }: Route) {
+export function SidebarItem({ href, label, icon }: Route) {
     const pathname = usePathname();
 
     return (
@@ -112,12 +112,12 @@ export default function DashboardSidebar(props: any) {
                 <nav className="flex flex-col p-2 gap-2">
                     <SectionTitle>App settings</SectionTitle>
                     {appItems.map((item, index) => (
-                        <RouteView {...item} key={`${index}-nav`} />
+                        <SidebarItem {...item} key={`${index}-nav`} />
                     ))}
                     <Separator />
                     <SectionTitle>Content</SectionTitle>
                     {contentItems.map((item, index) => (
-                        <RouteView {...item} key={`${index}-nav-content`} />
+                        <SidebarItem {...item} key={`${index}-nav-content`} />
                     ))}
                 </nav>
             </aside>

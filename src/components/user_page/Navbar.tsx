@@ -8,14 +8,24 @@ import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 function NavbarLink({
     children,
     href,
+    uuid,
 }: {
     children: React.ReactNode;
     href: string;
+    uuid: string;
 }) {
     const pathname = usePathname();
 
     return (
-        <Button variant={pathname === href ? "secondary" : "ghost"} asChild>
+        <Button
+            variant={
+                pathname == href ||
+                (pathname.startsWith(href) &&
+                    href != `/dashboard/users/${uuid}`)
+                    ? "secondary"
+                    : "ghost"
+            }
+            asChild>
             <Link href={href}>{children}</Link>
         </Button>
     );
@@ -25,14 +35,19 @@ export default function UserNavbar({ uuid }: { uuid: string }) {
     return (
         <ScrollArea>
             <div className="static lg:fixed bg-zinc-950/80 backdrop-blur-md lg:top-0 w-full h-14 border-b flex flex-row items-center justify-start px-4 gap-4 z-50">
-                <NavbarLink href={`/dashboard/users/${uuid}`}>
+                <NavbarLink uuid={uuid} href={`/dashboard/users/${uuid}`}>
                     Overview
                 </NavbarLink>
-                <NavbarLink href={`/dashboard/users/${uuid}/posts`}>
+                <NavbarLink uuid={uuid} href={`/dashboard/users/${uuid}/posts`}>
                     Posts
                 </NavbarLink>
-                <NavbarLink href={`/dashboard/users/${uuid}/chats`}>
+                <NavbarLink uuid={uuid} href={`/dashboard/users/${uuid}/chats`}>
                     Chats
+                </NavbarLink>
+                <NavbarLink
+                    uuid={uuid}
+                    href={`/dashboard/users/${uuid}/manage`}>
+                    Manage
                 </NavbarLink>
             </div>
             <ScrollBar orientation="horizontal" />

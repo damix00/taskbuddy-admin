@@ -1,9 +1,11 @@
 "use client";
 
-import { updateVerifications } from "@/actions/management/user_management";
+import {
+    updateLoginDetails,
+    updateVerifications,
+} from "@/actions/management/user/security";
 import {
     AlertDialog,
-    AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
     AlertDialogDescription,
@@ -17,17 +19,18 @@ import {
     Card,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
+import { useToast } from "@/components/ui/use-toast";
 import InputCard from "@/components/user_page/manage/InputCard";
+import SecurityInputFields from "@/components/user_page/manage/security/InputFields";
 import { UserRow } from "@/components/users/types";
 import { UserContext } from "@/context/user_context";
+import { undoToast } from "@/lib/toast";
 import { useContext, useState } from "react";
 
 function CheckboxInput({
@@ -86,32 +89,7 @@ export default function ManageUserSecurity() {
 
     return (
         <div className="flex flex-col gap-4 w-full">
-            <div className="flex flex-row flex-wrap gap-2">
-                <InputCard
-                    title="Email"
-                    description="Update the user's e-mail address."
-                    initialValue={context?.user?.user.email}
-                    placeholder="e.g. test@example.com"
-                    type="email"
-                    onClick={() => {}}
-                />
-                <InputCard
-                    title="Phone number"
-                    description="Update the user's phone number."
-                    initialValue={context?.user?.user.phone_number}
-                    placeholder="+1234567890"
-                    type="tel"
-                    onClick={() => {}}
-                />
-                <InputCard
-                    title="Password"
-                    description="Reset the user's password."
-                    initialValue=""
-                    placeholder="New password"
-                    type="password"
-                    onClick={() => {}}
-                />
-            </div>
+            <SecurityInputFields />
             <Separator />
             <div className="flex flex-row">
                 <Card>

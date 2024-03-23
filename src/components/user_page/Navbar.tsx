@@ -26,7 +26,9 @@ function NavbarLink({
                     : "ghost"
             }
             asChild>
-            <Link href={href}>{children}</Link>
+            <Link scroll={false} href={href}>
+                {children}
+            </Link>
         </Button>
     );
 }

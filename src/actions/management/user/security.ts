@@ -87,3 +87,54 @@ export async function updatePassword({
         return false;
     }
 }
+
+export async function deleteLogin({
+    loginId,
+}: {
+    loginId: number;
+}): Promise<boolean> {
+    try {
+        await db.logins.delete({
+            where: {
+                id: loginId,
+            },
+        });
+
+        return true;
+    } catch (e) {
+        console.error(e);
+        return false;
+    }
+}
+
+export async function logoutOfAllDevices({
+    userId,
+}: {
+    userId: number;
+}): Promise<boolean> {
+    try {
+        const res = await db.users.update({
+            where: { id: userId },
+            data: {
+                logins: {
+                    deleteMany: {},
+                },
+                token_version: {
+                    increment: 1,
+                },
+            },
+            select: {
+                id: true,
+            },
+        });
+
+        if (!res || !res.id) {
+            return false;
+        }
+
+        return true;
+    } catch (e) {
+        console.error(e);
+        return false;
+    }
+}

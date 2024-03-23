@@ -2,7 +2,7 @@ import { UserRow } from "@/components/users/types";
 import ProfileSection from "./ProfileSection";
 import { Separator } from "@/components/ui/separator";
 
-export default function ProfileInformation({ user }: { user: UserRow }) {
+export default function JobInformation({ user }: { user: UserRow }) {
     return (
         <>
             <div className="text-md font-bold">Profile information</div>

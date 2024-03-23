@@ -1,4 +1,4 @@
-import ProfileInfo from "./page";
+import ProfileInfoLayout from "./page";
 
 export default function Default({
     params,
@@ -7,5 +7,5 @@ export default function Default({
         uuid: string;
     };
 }) {
-    return <ProfileInfo params={params} />;
+    return <ProfileInfoLayout params={params} />;
 }

@@ -24,6 +24,7 @@ type Route = {
     href: string;
     label: string;
     icon: React.ReactNode;
+    scroll?: boolean;
 };
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
@@ -55,11 +56,11 @@ function RouteViewSmall({ href, label, icon }: Route) {
     );
 }
 
-export function SidebarItem({ href, label, icon }: Route) {
+export function SidebarItem({ href, label, icon, scroll = true }: Route) {
     const pathname = usePathname();
 
     return (
-        <Link href={href}>
+        <Link href={href} scroll={scroll}>
             <Button
                 variant={pathname.startsWith(href) ? "secondary" : "ghost"}
                 size="full">

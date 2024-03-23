@@ -5,14 +5,14 @@ export function undoToast({
     toast,
     title,
     description,
-    variant,
+    variant = "default",
     undoAction,
     undoParams,
 }: {
     toast: (data: Omit<ToasterToast, "id">) => void;
     title: string;
     description?: string;
-    variant: "default" | "destructive" | null | undefined;
+    variant?: "default" | "destructive" | null | undefined;
     undoAction?: (params: any) => Promise<any>;
     undoParams?: any;
 }) {

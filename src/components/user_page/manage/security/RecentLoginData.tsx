@@ -112,10 +112,71 @@ function RecentLoginItem({
     );
 }
 
-export default function RecentLoginData({ logins }: { logins: RecentLogin[] }) {
-    const [loginData, setLoginData] = useState(logins);
+function LogoutAllSessions({ onLogout }: { onLogout?: () => any }) {
     const context = useContext(UserContext);
     const { toast } = useToast();
+    const [loading, setLoading] = useState(false);
+    const [open, setOpen] = useState(false);
+
+    return (
+        <AlertDialog open={open} onOpenChange={setOpen}>
+            <AlertDialogTrigger>
+                <Button variant="outline" className="w-full">
+                    Log out all sessions
+                </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <AlertDialogTitle>Log out all sessions</AlertDialogTitle>
+                    <AlertDialogDescription>
+                        Are you sure you want to log out of all sessions?
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <Button
+                        disabled={loading}
+                        onClick={async () => {
+                            setLoading(true);
+
+                            if (!context?.user) return;
+
+                            const res = await logoutOfAllDevices({
+                                userId: context?.user!.user.id,
+                            });
+
+                            setOpen(false);
+                            setLoading(false);
+
+                            if (!res) {
+                                toast({
+                                    title: "Error",
+                                    description:
+                                        "An error occurred while logging out of all sessions.",
+                                    variant: "destructive",
+                                });
+
+                                return;
+                            }
+
+                            toast({
+                                title: "Success",
+                                description:
+                                    "Logged out of all sessions successfully.",
+                            });
+
+                            if (onLogout) onLogout();
+                        }}>
+                        Log out
+                    </Button>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
+    );
+}
+
+export default function RecentLoginData({ logins }: { logins: RecentLogin[] }) {
+    const [loginData, setLoginData] = useState(logins);
 
     return (
         <Card className="w-fit h-fit max-w-72 lg:max-w-none">
@@ -154,37 +215,11 @@ export default function RecentLoginData({ logins }: { logins: RecentLogin[] }) {
                 </ScrollArea>
             </CardContent>
             <CardFooter>
-                <Button
-                    variant="outline"
-                    className="w-full"
-                    onClick={async () => {
-                        if (!context?.user) return;
-
-                        const res = await logoutOfAllDevices({
-                            userId: context?.user!.user.id,
-                        });
-
-                        if (!res) {
-                            toast({
-                                title: "Error",
-                                description:
-                                    "An error occurred while logging out of all sessions.",
-                                variant: "destructive",
-                            });
-
-                            return;
-                        }
-
-                        toast({
-                            title: "Success",
-                            description:
-                                "Logged out of all sessions successfully.",
-                        });
-
+                <LogoutAllSessions
+                    onLogout={() => {
                         setLoginData([]);
-                    }}>
-                    Log out all sessions
-                </Button>
+                    }}
+                />
             </CardFooter>
         </Card>
     );

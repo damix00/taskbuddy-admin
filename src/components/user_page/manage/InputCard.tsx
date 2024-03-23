@@ -44,7 +44,7 @@ export default function InputCard({
             </CardHeader>
             <CardContent className="space-y-2">
                 {inputs.map(({ label, type, placeholder, initialValue }, i) => (
-                    <div className="space-y-1">
+                    <div key={label} className="space-y-1">
                         <Label htmlFor="newInput">{label}</Label>
                         <Input
                             onChange={(e) => {

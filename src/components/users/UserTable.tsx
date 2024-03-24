@@ -103,7 +103,6 @@ function TableContent({
 }) {
     const maxWidth = useMaxWidth();
     const params = useSearchParams();
-    const router = useRouter();
 
     const getPageLink = (page: number) => {
         return `/dashboard/users?${getDefaultParams(params, {

@@ -8,6 +8,7 @@ import {
     DropdownMenuGroup,
     DropdownMenuItem,
     DropdownMenuLabel,
+    DropdownMenuSeparator,
     DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -16,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useContext } from "react";
 import { UserContext } from "@/context/user_context";
+import { openGoogleMaps } from "@/utils/utils";
 
 export default function ActionsCell({ row }: CellContext<UserSession, any>) {
     const context = useContext(UserContext);
@@ -31,8 +33,9 @@ export default function ActionsCell({ row }: CellContext<UserSession, any>) {
                     <MoreVertical className="w-4 h-4" />
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
+            <DropdownMenuContent className="min-w-52">
                 <DropdownMenuLabel>Manage session</DropdownMenuLabel>
+                <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                     <DropdownMenuItem asChild>
                         <Link
@@ -42,12 +45,20 @@ export default function ActionsCell({ row }: CellContext<UserSession, any>) {
                             View
                         </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
-                        View location
-                        <DropdownMenuShortcut>
-                            <ExternalLink className="w-4 h-4" />
-                        </DropdownMenuShortcut>
-                    </DropdownMenuItem>
+                    {row.original.lat && row.original.lat != 1000 && (
+                        <DropdownMenuItem
+                            onClick={() => {
+                                openGoogleMaps(
+                                    row.original.lat!,
+                                    row.original.lon!
+                                );
+                            }}>
+                            Open in Google Maps
+                            <DropdownMenuShortcut>
+                                <ExternalLink className="w-4 h-4" />
+                            </DropdownMenuShortcut>
+                        </DropdownMenuItem>
+                    )}
                 </DropdownMenuGroup>
             </DropdownMenuContent>
         </DropdownMenu>

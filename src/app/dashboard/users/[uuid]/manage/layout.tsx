@@ -4,7 +4,7 @@ import CardSkeleton from "@/components/display/CardSkeleton";
 import { SidebarItem } from "@/components/nav/Sidebar";
 import { Separator } from "@/components/ui/separator";
 import { UserContext } from "@/context/user_context";
-import { LockKeyhole, Shield, User } from "lucide-react";
+import { LockKeyhole, Plus, Shield, User } from "lucide-react";
 import { useContext } from "react";
 
 export default function ManageUserLayout({
@@ -44,6 +44,12 @@ export default function ManageUserLayout({
                         label="Access"
                         icon={<Shield className="w-4 h-4" />}
                         href={`/dashboard/users/${params.uuid}/manage/access`}
+                        scroll={false}
+                    />
+                    <SidebarItem
+                        label="Actions"
+                        icon={<Plus className="w-4 h-4" />}
+                        href={`/dashboard/users/${params.uuid}/manage/actions`}
                         scroll={false}
                     />
                 </div>

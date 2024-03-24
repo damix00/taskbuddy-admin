@@ -56,3 +56,10 @@ export function timeAgo(date: Date) {
 export function bigintToInt(bigint: any) {
     return parseInt(bigint.toString());
 }
+
+export function openGoogleMaps(lat: number, lon: number) {
+    window.open(
+        `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`,
+        "_blank"
+    );
+}

@@ -30,6 +30,7 @@ async function getData(): Promise<{
         messages: {
             total_messages: number;
         };
+        mau: number;
     };
     error: boolean;
 }> {
@@ -86,6 +87,9 @@ async function getData(): Promise<{
                 reviewed: { not: true },
             },
         });
+
+        const mau =
+            await db.$queryRaw`SELECT COUNT(DISTINCT user_id) FROM scroll_sessions WHERE created_at >= NOW() - INTERVAL '30 days'`;
 
         const total_users = await db.users.count();
         const total_posts = await db.posts.count();
@@ -169,6 +173,8 @@ async function getData(): Promise<{
                 messages: {
                     total_messages,
                 },
+                // @ts-ignore
+                mau: mau[0].count,
             },
             error: false,
         };

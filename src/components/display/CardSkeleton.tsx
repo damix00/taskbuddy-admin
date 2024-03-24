@@ -7,13 +7,19 @@ export default function CardSkeleton({
     flex = true,
     gap = 8,
     randomWidth = true,
+    randomHeight = true,
     center = false,
+    width = 300,
+    height = 200,
 }: {
     count?: number;
     flex?: boolean;
     gap?: number;
     randomWidth?: boolean;
+    randomHeight?: boolean;
     center?: boolean;
+    width?: number;
+    height?: number;
 }) {
     return (
         <div
@@ -31,8 +37,10 @@ export default function CardSkeleton({
                         // Random width and height between 100px and 400px
                         width: randomWidth
                             ? Math.floor(Math.random() * 300) + 100
-                            : 300,
-                        height: Math.floor(Math.random() * 300) + 100,
+                            : width,
+                        height: randomHeight
+                            ? Math.floor(Math.random() * 300) + 100
+                            : height,
                     }}
                 />
             ))}

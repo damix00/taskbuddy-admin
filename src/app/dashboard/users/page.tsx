@@ -4,6 +4,7 @@ import UserSearchField from "@/components/users/filters/SearchField";
 import UserTable from "@/components/users/UserTable";
 import UserData from "@/components/users/Users.server";
 import { Suspense } from "react";
+import { useParams } from "next/navigation";
 
 export default function UsersPage({
     searchParams,

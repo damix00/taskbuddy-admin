@@ -57,10 +57,6 @@ export default function ProfileInfoData() {
             <AccountInformation user={user} />
             <Separator className="my-4" />
             <JobInformation user={user} />
-            <Separator className="my-4" />
-            <ProfileSection label="Private">
-                {user.profile.is_private ? "Yes" : "No"}
-            </ProfileSection>
         </>
     );
 }

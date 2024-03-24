@@ -14,9 +14,11 @@ export default function ManageUserSecurity({
 }) {
     return (
         <div className="flex flex-col gap-4 w-full">
-            <SecurityInputFields />
+            <div className="px-2">
+                <SecurityInputFields />
+            </div>
             <Separator />
-            <div className="flex flex-row gap-2 flex-wrap">
+            <div className="flex flex-row gap-2 flex-wrap px-2">
                 <SecurityVerifications />
                 <Suspense fallback={<CardSkeleton randomWidth={false} />}>
                     <SecurityRecentLogins uuid={params.uuid} />

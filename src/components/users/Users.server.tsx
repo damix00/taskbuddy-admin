@@ -10,18 +10,18 @@ async function getData({
     page,
     lastId,
     query,
+    itemsPerPage = 10,
 }: {
     sortBy: string;
     sortOrder: string;
     page: number;
     lastId: number;
     query: string;
+    itemsPerPage?: number;
 }): Promise<{
     users: UserRow[];
     pages: number;
 } | null> {
-    const itemsPerPage = 20;
-
     try {
         const data = await db.users.findMany({
             orderBy: {

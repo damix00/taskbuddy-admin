@@ -27,6 +27,7 @@ interface AnalyticsData {
         messages: {
             total_messages: number;
         };
+        mau: number;
     };
 }
 
@@ -73,6 +74,12 @@ function Cards({
                 title="Total messages"
                 value={charts?.messages.total_messages}
                 description="Messages sent on TaskBuddy"
+            />
+            <DataCard
+                loading={loading}
+                title="Monthly active users"
+                value={charts?.mau}
+                description="Users who have used TaskBuddy this month"
             />
         </div>
     );

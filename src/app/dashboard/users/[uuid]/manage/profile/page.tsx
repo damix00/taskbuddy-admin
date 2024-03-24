@@ -5,7 +5,7 @@ import ManagePublicProfile from "@/components/user_page/manage/profile/ManagePub
 export default function ManageProfile() {
     return (
         <div className="flex flex-col gap-4 w-full">
-            <div className="space-y-4">
+            <div className="space-y-4 px-2">
                 <div className="flex flex-col gap-0.5">
                     <h1 className="text-2xl font-bold">
                         Manage public profile
@@ -17,7 +17,9 @@ export default function ManageProfile() {
                 <ManagePublicProfile />
             </div>
             <Separator />
-            <ManageBadges />
+            <div className="px-2">
+                <ManageBadges />
+            </div>
         </div>
     );
 }

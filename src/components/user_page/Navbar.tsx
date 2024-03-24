@@ -40,6 +40,11 @@ export default function UserNavbar({ uuid }: { uuid: string }) {
                 <NavbarLink uuid={uuid} href={`/dashboard/users/${uuid}`}>
                     Overview
                 </NavbarLink>
+                <NavbarLink
+                    uuid={uuid}
+                    href={`/dashboard/users/${uuid}/sessions`}>
+                    Sessions
+                </NavbarLink>
                 <NavbarLink uuid={uuid} href={`/dashboard/users/${uuid}/posts`}>
                     Posts
                 </NavbarLink>

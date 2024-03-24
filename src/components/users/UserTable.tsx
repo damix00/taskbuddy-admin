@@ -5,7 +5,7 @@ import {
     getCoreRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import { CustomTable } from "../data/CustomTable";
+import { CustomTable, PaginateTable } from "../data/CustomTable";
 import { Skeleton } from "../ui/skeleton";
 import { DisplayUser, UserRow, getDefaultParams } from "./types";
 import { Card } from "@/components/ui/card";
@@ -15,14 +15,6 @@ import useMaxWidth from "@/hooks/use_max_width";
 import ActionsCell from "./cells/ActionsCell";
 import RoleCell from "./cells/RoleCell";
 import memoize from "@/hooks/custom_memo";
-import {
-    Pagination,
-    PaginationContent,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-} from "../ui/pagination";
 import { useRouter, useSearchParams } from "next/navigation";
 import SortableHeader from "./cells/SortableHeader";
 
@@ -127,41 +119,13 @@ function TableContent({
             }}>
             <CustomTable columns={columns} table={table} />
             {pages != 1 && (
-                <Pagination className="p-2 flex justify-end">
-                    <PaginationContent>
-                        {page != 1 && (
-                            <PaginationItem>
-                                <PaginationPrevious
-                                    href={getPageLink(page - 1)}
-                                />
-                            </PaginationItem>
-                        )}
-                        {page != 1 && (
-                            <PaginationItem>
-                                <PaginationLink href={getPageLink(page - 1)}>
-                                    {page - 1}
-                                </PaginationLink>
-                            </PaginationItem>
-                        )}
-                        <PaginationItem>
-                            <PaginationLink isActive href={getPageLink(page)}>
-                                {page}
-                            </PaginationLink>
-                        </PaginationItem>
-                        {page != pages && (
-                            <PaginationItem>
-                                <PaginationLink href={getPageLink(page + 1)}>
-                                    {page + 1}
-                                </PaginationLink>
-                            </PaginationItem>
-                        )}
-                        {page != pages && (
-                            <PaginationItem>
-                                <PaginationNext href={getPageLink(page + 1)} />
-                            </PaginationItem>
-                        )}
-                    </PaginationContent>
-                </Pagination>
+                <PaginateTable
+                    pages={pages}
+                    page={page}
+                    nextHref={getPageLink(page + 1)}
+                    prevHref={getPageLink(page - 1)}
+                    currentHref={getPageLink(page)}
+                />
             )}
         </Card>
     );

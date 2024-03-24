@@ -77,28 +77,6 @@ export default function ManageBadges() {
                         });
                     }}
                 />
-
-                <CheckboxInput
-                    label="Private"
-                    checked={context.user.profile.is_private}
-                    dialogTitle="Update private status"
-                    dialogDescription="Are you sure you want to change the private status?"
-                    onChange={(checked) => {
-                        context.setData({
-                            ...context!.user!,
-                            profile: {
-                                ...context!.user!.profile,
-                                is_private: checked,
-                            },
-                        });
-                    }}
-                    update={async (data) => {
-                        return await setProfilePrivate({
-                            profile_id: context!.user!.profile.id,
-                            is_private: data,
-                        });
-                    }}
-                />
             </CardContent>
         </Card>
     );

@@ -1,30 +1,16 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-    Sheet,
-    SheetClose,
-    SheetContent,
-    SheetDescription,
-    SheetFooter,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "@/components/ui/sheet";
 import { UserContext } from "@/context/user_context";
-import { X } from "lucide-react";
-import { useContext, useState } from "react";
+import { BadgeCheck } from "lucide-react";
+import { useContext } from "react";
 import ManageProfileDialog from "./ManageProfileDialog";
 
 function ProfileAvatar() {
@@ -81,8 +67,14 @@ export default function ManagePublicProfile() {
                             {context?.user?.user.first_name}{" "}
                             {context?.user?.user.last_name}
                         </h1>
-                        <p className="text-sm text-muted-foreground truncate">
+                        <p className="text-sm text-muted-foreground truncate flex flex-row gap-1 items-center">
                             @{context?.user?.user.username}
+                            {context?.user?.user.verified && (
+                                <BadgeCheck
+                                    size={16}
+                                    color="var(--color-primary)"
+                                />
+                            )}
                         </p>
                     </div>
                 </div>

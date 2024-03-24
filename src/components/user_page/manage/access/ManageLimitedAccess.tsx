@@ -120,7 +120,7 @@ export default function ManageLimitedAccess() {
     ];
 
     return (
-        <Card className="w-fit h-fit max-w-96">
+        <Card className="w-fit h-fit max-w-80">
             <CardHeader>
                 <CardTitle>Limited access</CardTitle>
                 <CardDescription>

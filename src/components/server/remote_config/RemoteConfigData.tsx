@@ -15,6 +15,7 @@ import { RemoteConfigItem, RemoteConfigTypes } from "./types";
 import TableCard from "@/components/data/CustomTable";
 import {
     Dialog,
+    DialogButton,
     DialogContent,
     DialogDescription,
     DialogFooter,
@@ -65,7 +66,7 @@ function ValueCell({ row }: any) {
                     />
                 </div>
                 <DialogFooter>
-                    <Button
+                    <DialogButton
                         disabled={loading}
                         onClick={async () => {
                             setLoading(true);
@@ -130,7 +131,7 @@ function ValueCell({ row }: any) {
                             setValue(newValue);
                         }}>
                         Save
-                    </Button>
+                    </DialogButton>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

@@ -5,6 +5,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { Button, ButtonProps } from "./button";
 
 const Dialog = DialogPrimitive.Root;
 
@@ -80,6 +81,26 @@ const DialogFooter = ({
 );
 DialogFooter.displayName = "DialogFooter";
 
+const DialogButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
+    ({ className, variant, size, asChild = false, ...props }, ref) => {
+        return (
+            <Button
+                ref={ref}
+                className={cn(
+                    "flex-1",
+                    asChild ? "w-full" : "w-auto",
+                    className
+                )}
+                variant={variant}
+                size={size}
+                {...props}
+            />
+        );
+    }
+);
+
+DialogButton.displayName = "DialogButton";
+
 const DialogTitle = React.forwardRef<
     React.ElementRef<typeof DialogPrimitive.Title>,
     React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
@@ -118,4 +139,5 @@ export {
     DialogFooter,
     DialogTitle,
     DialogDescription,
+    DialogButton,
 };

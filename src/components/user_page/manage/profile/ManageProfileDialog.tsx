@@ -22,7 +22,7 @@ import { undoToast } from "@/lib/toast";
 import { X } from "lucide-react";
 import { useContext, useState } from "react";
 
-function EditProfilePicture() {
+function EditProfilePicture({ onRemove }: { onRemove?: () => void }) {
     const context = useContext(UserContext);
     const [removed, setRemoved] = useState(false);
 
@@ -47,7 +47,10 @@ function EditProfilePicture() {
             <Button
                 variant="outline"
                 size="iconSm"
-                onClick={() => setRemoved(true)}>
+                onClick={() => {
+                    setRemoved(true);
+                    if (onRemove) onRemove();
+                }}>
                 <X className="w-4 h-4" />
             </Button>
         </div>
@@ -83,7 +86,9 @@ export default function ManageProfileDialog() {
                     </DialogDescription>
                 </DialogHeader>
                 <div className="flex flex-col py-4 gap-4">
-                    <EditProfilePicture />
+                    <EditProfilePicture
+                        onRemove={() => setProfilePicture("")}
+                    />
                     <div className="flex flex-row gap-2 flex-wrap lg:flex-nowrap">
                         <div className="flex-col">
                             <Label htmlFor="first_name">First name</Label>

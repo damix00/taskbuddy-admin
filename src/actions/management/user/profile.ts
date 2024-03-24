@@ -30,8 +30,6 @@ export async function updatePublicProfile({
             },
         });
 
-        console.log(res);
-
         if (!res) {
             return false;
         }
@@ -46,8 +44,6 @@ export async function updatePublicProfile({
                 username,
             },
         });
-
-        console.log(usersRes);
 
         if (!usersRes) {
             return false;

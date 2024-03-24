@@ -49,6 +49,12 @@ export default function SecurityInputFields() {
                     });
 
                     if (!res) {
+                        toast({
+                            title: "Error",
+                            description:
+                                "Failed to update the user's login details.",
+                            variant: "destructive",
+                        });
                         return;
                     }
 
@@ -119,12 +125,17 @@ export default function SecurityInputFields() {
                     });
 
                     if (!res) {
+                        toast({
+                            title: "Error",
+                            description: "Failed to reset the user's password.",
+                            variant: "destructive",
+                        });
                         return;
                     }
 
                     toast({
                         title: "Password updated.",
-                        description: "The user password has been updated.",
+                        description: "The user password has been reset.",
                     });
                 }}
                 buttonText="Reset"

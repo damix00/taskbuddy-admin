@@ -10,6 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import AccountInformation from "./AccountInformation";
 import JobInformation from "./JobInformation";
 import Biography from "./Biography";
+import ProfileSection from "./ProfileSection";
 
 export default function ProfileInfoData() {
     const context = useContext(UserContext);
@@ -56,6 +57,10 @@ export default function ProfileInfoData() {
             <AccountInformation user={user} />
             <Separator className="my-4" />
             <JobInformation user={user} />
+            <Separator className="my-4" />
+            <ProfileSection label="Private">
+                {user.profile.is_private ? "Yes" : "No"}
+            </ProfileSection>
         </>
     );
 }

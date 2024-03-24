@@ -1,17 +1,7 @@
 "use client";
 
 import { updateVerifications } from "@/actions/management/user/security";
-import {
-    AlertDialog,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+import CheckboxInput from "@/components/input/CheckboxInput";
 import {
     Card,
     CardContent,
@@ -19,62 +9,9 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import { UserRow } from "@/components/users/types";
 import { UserContext } from "@/context/user_context";
-import { useContext, useState } from "react";
-
-function CheckboxInput({
-    label,
-    checked,
-    dialogTitle,
-    dialogDescription,
-    onChange,
-    update,
-}: {
-    label: string;
-    checked: boolean;
-    dialogTitle: string;
-    dialogDescription: string;
-    onChange: (checked: boolean) => void;
-    update: (data: boolean) => Promise<void>;
-}) {
-    const [open, setOpen] = useState(false);
-    const [loading, setLoading] = useState(false);
-
-    return (
-        <AlertDialog open={open} onOpenChange={setOpen}>
-            <AlertDialogTrigger className="flex flex-row items-center justify-between font-normal gap-4">
-                <Label>{label}</Label>
-                <Switch checked={checked} />
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-                <AlertDialogHeader>
-                    <AlertDialogTitle>{dialogTitle}</AlertDialogTitle>
-                    <AlertDialogDescription>
-                        {dialogDescription}
-                    </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                    <AlertDialogCancel>Close</AlertDialogCancel>
-                    <Button
-                        disabled={loading}
-                        onClick={async () => {
-                            setLoading(true);
-                            await update(!checked);
-                            setLoading(false);
-
-                            setOpen(false);
-                            onChange(!checked);
-                        }}>
-                        {checked ? "Disable" : "Enable"}
-                    </Button>
-                </AlertDialogFooter>
-            </AlertDialogContent>
-        </AlertDialog>
-    );
-}
+import { useContext } from "react";
 
 export default function SecurityVerifications() {
     const context = useContext(UserContext);
@@ -94,7 +31,7 @@ export default function SecurityVerifications() {
                     dialogDescription="Are you sure you want to change the e-mail verification status?"
                     checked={context?.user?.user.email_verified ?? false}
                     update={async (data) => {
-                        await updateVerifications({
+                        return await updateVerifications({
                             id: context!.user!.user.id,
                             data: {
                                 email: data,
@@ -120,7 +57,7 @@ export default function SecurityVerifications() {
                     dialogDescription="Are you sure you want to change the phone number verification status?"
                     checked={context?.user?.user.phone_number_verified ?? false}
                     update={async (data) => {
-                        await updateVerifications({
+                        return await updateVerifications({
                             id: context!.user!.user.id,
                             data: {
                                 email: context!.user!.user.email_verified,

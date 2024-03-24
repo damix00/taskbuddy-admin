@@ -1,3 +1,5 @@
+import { Separator } from "@/components/ui/separator";
+import ManageBadges from "@/components/user_page/manage/profile/ManageBadges";
 import ManagePublicProfile from "@/components/user_page/manage/profile/ManagePublicProfile";
 
 export default function ManageProfile() {
@@ -14,6 +16,8 @@ export default function ManageProfile() {
                 </div>
                 <ManagePublicProfile />
             </div>
+            <Separator />
+            <ManageBadges />
         </div>
     );
 }

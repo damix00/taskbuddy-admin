@@ -72,30 +72,28 @@ export default function ManagePublicProfile() {
     const context = useContext(UserContext);
 
     return (
-        <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-4">
-            <div className="flex flex-col gap-2 w-full lg:w-fit">
-                <div className="flex flex-col gap-2 lg:gap-4 lg:flex-row items-center truncate">
-                    <ProfileAvatar />
-                    <div className="flex flex-row items-center gap-2 lg:gap-4 truncate">
-                        <div className="flex flex-col gap-0.5 truncate">
-                            <h1 className="text font-bold truncate">
-                                {context?.user?.user.first_name}{" "}
-                                {context?.user?.user.last_name}
-                            </h1>
-                            <p className="text-sm text-muted-foreground truncate">
-                                @{context?.user?.user.username}
-                            </p>
-                        </div>
+        <div className="flex flex-col gap-2 w-full lg:w-fit">
+            <div className="flex flex-col gap-2 lg:gap-4 lg:flex-row items-center truncate">
+                <ProfileAvatar />
+                <div className="flex flex-row items-center gap-2 lg:gap-4 truncate">
+                    <div className="flex flex-col gap-0.5 truncate">
+                        <h1 className="text font-bold truncate">
+                            {context?.user?.user.first_name}{" "}
+                            {context?.user?.user.last_name}
+                        </h1>
+                        <p className="text-sm text-muted-foreground truncate">
+                            @{context?.user?.user.username}
+                        </p>
                     </div>
                 </div>
-                <div className="flex flex-col items-start">
-                    <div className="font-bold">Biography</div>
-                    <div className="text-muted-foreground whitespace-pre-wrap">
-                        {context?.user?.profile.bio}
-                    </div>
+                <ManageProfileDialog />
+            </div>
+            <div className="flex flex-col items-start space-y-0.5">
+                <div className="font-bold">Biography</div>
+                <div className="text-muted-foreground whitespace-pre-wrap text-sm">
+                    {context?.user?.profile.bio}
                 </div>
             </div>
-            <ManageProfileDialog />
         </div>
     );
 }

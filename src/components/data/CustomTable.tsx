@@ -34,6 +34,8 @@ export function PaginateTable({
     page,
     prevHref,
     nextHref,
+    lastHref,
+    firstHref,
     currentHref,
 }: {
     pages: number;
@@ -41,6 +43,8 @@ export function PaginateTable({
     prevHref: string;
     nextHref: string;
     currentHref: string;
+    lastHref: string;
+    firstHref: string;
 }) {
     return (
         <Pagination className="p-2 flex justify-end">
@@ -52,7 +56,7 @@ export function PaginateTable({
                 )}
                 {page != 1 && (
                     <PaginationItem>
-                        <PaginationLink href={prevHref}>{1}</PaginationLink>
+                        <PaginationLink href={firstHref}>1</PaginationLink>
                     </PaginationItem>
                 )}
                 <PaginationItem>
@@ -62,7 +66,7 @@ export function PaginateTable({
                 </PaginationItem>
                 {page != pages && (
                     <PaginationItem>
-                        <PaginationLink href={nextHref}>{pages}</PaginationLink>
+                        <PaginationLink href={lastHref}>{pages}</PaginationLink>
                     </PaginationItem>
                 )}
                 {page != pages && (

@@ -1,6 +1,6 @@
 "use client";
 
-import { User, UserRow } from "@/components/users/types";
+import { UserRow } from "@/components/users/types";
 import { createContext, useContext, useEffect, useState } from "react";
 
 export type UserContextType = {

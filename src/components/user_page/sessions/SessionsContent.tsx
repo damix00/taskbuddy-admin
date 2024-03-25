@@ -78,6 +78,8 @@ export default function SessionsContent({
                     nextHref={getPageLink(page + 1)}
                     prevHref={getPageLink(page - 1)}
                     currentHref={getPageLink(page)}
+                    lastHref={getPageLink(data.pages)}
+                    firstHref={getPageLink(1)}
                 />
             )}
         </Card>

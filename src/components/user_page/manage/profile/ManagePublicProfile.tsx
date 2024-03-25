@@ -80,12 +80,14 @@ export default function ManagePublicProfile() {
                 </div>
                 <ManageProfileDialog />
             </div>
-            <div className="flex flex-col items-start space-y-0.5">
-                <div className="font-bold">Biography</div>
-                <div className="text-muted-foreground whitespace-pre-wrap text-sm">
-                    {context?.user?.profile.bio}
+            {context?.user?.profile.bio && (
+                <div className="flex flex-col items-start space-y-0.5">
+                    <div className="font-bold">Biography</div>
+                    <div className="text-muted-foreground whitespace-pre-wrap text-sm">
+                        {context?.user?.profile.bio}
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 }

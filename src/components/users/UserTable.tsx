@@ -124,6 +124,8 @@ function TableContent({
                     nextHref={getPageLink(page + 1)}
                     prevHref={getPageLink(page - 1)}
                     currentHref={getPageLink(page)}
+                    lastHref={getPageLink(pages)}
+                    firstHref={getPageLink(1)}
                 />
             )}
         </Card>

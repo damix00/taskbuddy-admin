@@ -12,6 +12,12 @@ const nextConfig = {
                 destination: "/dashboard/users/:uuid/manage/security",
                 permanent: true,
             },
+            {
+                source: "/dashboard/users/:uuid/sessions/:session_id",
+                destination:
+                    "/dashboard/users/:uuid/sessions/:session_id/details",
+                permanent: true,
+            },
         ];
     },
     typescript: {

@@ -3,7 +3,7 @@
 import { Post } from "@/components/user_page/posts/types";
 import { db } from "@/lib/database/prisma";
 
-export default async function getUserPosts({
+export async function getUserPosts({
     uuid,
     last,
     take = 10,
@@ -81,6 +81,28 @@ export default async function getUserPosts({
                 media: media[i],
             };
         });
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
+export async function getPostUuid(postId: number): Promise<string | null> {
+    try {
+        const post = await db.posts.findUnique({
+            where: {
+                id: postId,
+            },
+            select: {
+                uuid: true,
+            },
+        });
+
+        if (!post) {
+            return null;
+        }
+
+        return post.uuid;
     } catch (error) {
         console.error(error);
         return null;

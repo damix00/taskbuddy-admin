@@ -1,6 +1,6 @@
 "use client";
 
-import getUserPosts from "@/actions/posts";
+import { getUserPosts } from "@/actions/posts";
 import CardSkeleton from "@/components/display/CardSkeleton";
 import PostCard from "@/components/display/post/PostCard";
 import { Button } from "@/components/ui/button";

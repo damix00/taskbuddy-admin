@@ -14,6 +14,9 @@ import ContentTypeCell from "./cells/ContentTypeCell";
 import { CreatedAtCell, UpdatedAtCell } from "./cells/DateCell";
 import ReportedByCell from "./cells/ReportedByCell";
 import { Card } from "@/components/ui/card";
+import VerdictCell from "./cells/VerdictCell";
+import ReasonCell from "./cells/ReasonCell";
+import ActionsCell from "./cells/ActionsCell";
 
 const columns: ColumnDef<Report>[] = [
     {
@@ -33,6 +36,7 @@ const columns: ColumnDef<Report>[] = [
     {
         header: "Reason",
         accessorKey: "reason",
+        cell: ReasonCell,
     },
     {
         header: "Reviewed",
@@ -45,6 +49,11 @@ const columns: ColumnDef<Report>[] = [
         cell: ReviewedByCell,
     },
     {
+        header: "Verdict",
+        accessorKey: "verdict",
+        cell: VerdictCell,
+    },
+    {
         header: "Created At",
         accessorKey: "created_at",
         cell: CreatedAtCell,
@@ -53,6 +62,10 @@ const columns: ColumnDef<Report>[] = [
         header: "Updated At",
         accessorKey: "updated_at",
         cell: UpdatedAtCell,
+    },
+    {
+        id: "actions",
+        cell: ActionsCell,
     },
 ];
 
@@ -68,7 +81,7 @@ export default function UserReportsTable({
     uuid: string;
 }) {
     const getPageLink = (page: number) =>
-        `/dashboard/users/reports/${uuid}?page=${page}`;
+        `/dashboard/users/${uuid}/reports/?page=${page}`;
 
     const table = memoize(
         () =>

@@ -8,11 +8,13 @@ import UserReportsTable from "./UserReportsTable";
 interface ReportProps {
     uuid: string;
     page: number;
+    itemsPerPage?: number;
 }
 
 export async function fetchData({
     uuid,
     page,
+    itemsPerPage = 10,
 }: ReportProps): Promise<ReportResponse | null> {
     try {
         const user = await db.users.findUnique({
@@ -32,6 +34,8 @@ export async function fetchData({
             orderBy: {
                 created_at: "desc",
             },
+            skip: (page - 1) * itemsPerPage,
+            take: itemsPerPage,
         });
 
         if (!reports) {
@@ -44,7 +48,7 @@ export async function fetchData({
             },
         });
 
-        const pages = Math.ceil(items / 10);
+        const pages = Math.ceil(items / itemsPerPage);
 
         const res = [];
 
@@ -97,8 +101,12 @@ export async function fetchData({
     }
 }
 
-export default async function UserReports({ uuid, page = 1 }: ReportProps) {
-    const reports = await fetchData({ uuid, page });
+export default async function UserReports({
+    uuid,
+    page = 1,
+    itemsPerPage = 10,
+}: ReportProps) {
+    const reports = await fetchData({ uuid, page, itemsPerPage });
 
     return (
         <UserReportsTable

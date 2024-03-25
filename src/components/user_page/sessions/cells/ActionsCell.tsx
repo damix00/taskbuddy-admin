@@ -33,7 +33,7 @@ export default function ActionsCell({ row }: CellContext<UserSession, any>) {
                     <MoreVertical className="w-4 h-4" />
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="min-w-52">
+            <DropdownMenuContent>
                 <DropdownMenuLabel>Manage session</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
@@ -47,6 +47,7 @@ export default function ActionsCell({ row }: CellContext<UserSession, any>) {
                     </DropdownMenuItem>
                     {row.original.lat && row.original.lat != 1000 && (
                         <DropdownMenuItem
+                            className="gap-4"
                             onClick={() => {
                                 openGoogleMaps(
                                     row.original.lat!,

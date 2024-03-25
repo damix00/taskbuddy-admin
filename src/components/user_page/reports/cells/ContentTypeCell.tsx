@@ -5,16 +5,16 @@ export default function ContentTypeCell({ row }: CellContext<Report, any>) {
     const type = row.original.content_type;
 
     if (type == ReportContentType.ACCOUNT) {
-        return <>Account</>;
+        return <div>Account</div>;
     }
 
     if (type == ReportContentType.POST) {
-        return <>Post</>;
+        return <div>Post</div>;
     }
 
     if (type == ReportContentType.REVIEW) {
-        return <>Review</>;
+        return <div>Review</div>;
     }
 
-    return <>Unknown</>;
+    return <div>Unknown</div>;
 }

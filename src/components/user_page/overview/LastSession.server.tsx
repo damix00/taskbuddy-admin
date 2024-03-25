@@ -1,3 +1,5 @@
+"use server";
+
 import LocationDisplay from "@/components/display/LocationDisplay";
 import {
     Card,

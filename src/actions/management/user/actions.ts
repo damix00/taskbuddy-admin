@@ -1,5 +1,6 @@
 "use server";
 
+import { ReportContentType } from "@/components/user_page/reports/types";
 import getApp from "@/lib/database/firebase";
 import { db } from "@/lib/database/prisma";
 
@@ -50,7 +51,7 @@ export async function deleteAccount({
                     {
                         AND: [
                             {
-                                content_type: 2,
+                                content_type: ReportContentType.ACCOUNT,
                             },
                             {
                                 content_id: userId,

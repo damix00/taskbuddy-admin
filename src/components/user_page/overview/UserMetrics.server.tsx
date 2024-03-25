@@ -1,5 +1,6 @@
 import DataCard from "@/components/data/DataCard";
 import { db } from "@/lib/database/prisma";
+import { ReportContentType } from "../reports/types";
 
 // Function to get the most common time of day a user uses the app
 async function getAverageUsageTime({
@@ -120,7 +121,7 @@ async function getReportsThisWeek({ id }: { id: number }): Promise<number> {
                             },
                             {
                                 content_type: {
-                                    equals: 2,
+                                    equals: ReportContentType.ACCOUNT,
                                 },
                             },
                         ],

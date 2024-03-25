@@ -1,3 +1,5 @@
+"use server";
+
 import { db } from "@/lib/database/prisma";
 import { SessionsData } from "./types";
 import { bigintToInt } from "@/utils/utils";

@@ -158,7 +158,7 @@ export default function UserTable({
                 columns,
                 getCoreRowModel: getCoreRowModel(),
             }),
-        [users]
+        [users, page, search, pages]
     );
 
     if (loading) {

@@ -1,3 +1,5 @@
+"use server";
+
 import { db } from "@/lib/database/prisma";
 import { UserRow, getUserResponse } from "../../users/types";
 import { notFound } from "next/navigation";

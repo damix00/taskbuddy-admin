@@ -9,6 +9,7 @@ export default function AccountInformation({ user }: { user: UserRow }) {
             <div className="text-md font-bold">Account information</div>
             {/* Role */}
             <div className="flex flex-col gap-2 w-full mt-2">
+                <ProfileSection label="ID">{user.user.id}</ProfileSection>
                 <ProfileSection label="Role">
                     <Badge variant="outline">{user.user.role}</Badge>
                 </ProfileSection>

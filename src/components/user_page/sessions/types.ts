@@ -6,6 +6,7 @@ export interface UserSession {
     lon?: number | null;
     filters?: string | null;
     created_at: Date;
+    updated_at: Date;
 }
 
 export interface SessionsData {

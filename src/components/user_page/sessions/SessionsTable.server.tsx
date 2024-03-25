@@ -61,6 +61,7 @@ async function fetchData({
             lon: session.lon,
             filters: session.filters,
             created_at: session.created_at,
+            updated_at: session.updated_at,
         }));
 
         return {

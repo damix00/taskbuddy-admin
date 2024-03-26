@@ -14,7 +14,7 @@ export default function UserReviewsPage({
     }
 
     return (
-        <div className="p-4">
+        <div className="p-4 flex flex-col items-center">
             <ReviewsData userUuid={params.uuid} type={type as any} />
         </div>
     );

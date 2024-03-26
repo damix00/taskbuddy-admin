@@ -11,7 +11,7 @@ interface ReportProps {
     itemsPerPage?: number;
 }
 
-export async function fetchData({
+async function fetchData({
     uuid,
     page,
     itemsPerPage = 10,

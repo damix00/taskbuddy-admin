@@ -46,6 +46,8 @@ export function PaginateTable({
     lastHref: string;
     firstHref: string;
 }) {
+    if (pages == 0) return <></>;
+
     return (
         <Pagination className="p-2 flex justify-end">
             <PaginationContent>

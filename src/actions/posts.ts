@@ -3,34 +3,49 @@
 import { Post } from "@/components/user_page/posts/types";
 import { db } from "@/lib/database/prisma";
 
-export async function getUserPosts({
-    uuid,
+export async function getPosts({
+    userUuid,
     last,
     take = 10,
+    search = "",
 }: {
-    uuid: string;
+    userUuid?: string;
     last?: number;
     take?: number;
+    search?: string;
 }): Promise<Post[] | null> {
     try {
-        const userId = await db.users.findUnique({
-            where: {
-                uuid,
-            },
-            select: {
-                id: true,
-            },
-        });
+        let uid = null;
 
-        if (!userId) {
-            return null;
+        if (userUuid) {
+            const userId = await db.users.findUnique({
+                where: {
+                    uuid: userUuid,
+                },
+                select: {
+                    id: true,
+                },
+            });
+
+            if (!userId) {
+                return null;
+            }
+
+            uid = userId.id;
         }
 
         const posts = await db.posts.findMany({
             take,
             skip: last ? 1 : 0,
             where: {
-                user_id: userId.id,
+                user_id: uid ? uid : undefined,
+                title:
+                    search.length > 0
+                        ? {
+                              contains: search,
+                              mode: "insensitive",
+                          }
+                        : undefined,
             },
             cursor: last
                 ? {

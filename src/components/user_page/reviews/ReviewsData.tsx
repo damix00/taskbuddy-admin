@@ -109,7 +109,11 @@ export default function ReviewsData({
                         This user doesn't have any reviews yet.
                     </div>
                 )}
-                {loading && <CardSkeleton flex={false} count={3} />}
+                {loading && (
+                    <div className="flex flex-col items-center">
+                        <CardSkeleton flex={false} count={3} />
+                    </div>
+                )}
                 {reviews.length && hasMore ? (
                     <Button onClick={fetchReviews} disabled={loading}>
                         Load more

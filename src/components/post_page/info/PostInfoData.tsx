@@ -1,9 +1,13 @@
+"use client";
+
 import { PostInteractions } from "@/components/display/post/PostCard";
 import { Badge } from "@/components/ui/badge";
 import { Carousel, CarouselContent } from "@/components/ui/carousel";
 import { Separator } from "@/components/ui/separator";
 import { Post } from "@/components/user_page/posts/types";
+import { PostContext } from "@/context/post_context";
 import Link from "next/link";
+import { useContext } from "react";
 
 const categoryMap = {
     5: "general",
@@ -31,7 +35,15 @@ function InfoLabel({
     );
 }
 
-export default function PostInfoData({ post }: { post: Post }) {
+export default function PostInfoData() {
+    const context = useContext(PostContext);
+
+    if (!context || !context.post) {
+        return <></>;
+    }
+
+    const post = context.post as Post;
+
     let postType = "one-time";
 
     switch (post.job_type) {

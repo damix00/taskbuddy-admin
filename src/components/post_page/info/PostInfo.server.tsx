@@ -2,6 +2,7 @@ import { Post } from "@/components/user_page/posts/types";
 import PostInfoData from "./PostInfoData";
 import { notFound } from "next/navigation";
 import { getPosts } from "@/actions/posts";
+import { PostContextCreator } from "@/context/post_context";
 
 async function getData({ uuid }: { uuid: string }): Promise<Post | null> {
     try {
@@ -27,5 +28,10 @@ export default async function PostInfo({ uuid }: { uuid: string }) {
         return notFound();
     }
 
-    return <PostInfoData post={post} />;
+    return (
+        <>
+            <PostContextCreator post={post} />
+            <PostInfoData />
+        </>
+    );
 }

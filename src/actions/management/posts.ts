@@ -136,3 +136,39 @@ export async function updatePostInfo({
         return false;
     }
 }
+
+export async function updatePostLocation({
+    uuid,
+    lat,
+    lon,
+    locationName,
+}: {
+    uuid: string;
+    lat: number;
+    lon: number;
+    locationName: string;
+}): Promise<boolean> {
+    try {
+        const post = await db.posts.update({
+            where: {
+                uuid,
+            },
+            data: {
+                post_location: {
+                    update: {
+                        lat,
+                        lon,
+                        approx_lat: lat,
+                        approx_lon: lon,
+                        location_name: locationName,
+                    },
+                },
+            },
+        });
+
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}

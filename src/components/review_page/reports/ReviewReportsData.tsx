@@ -1,16 +1,16 @@
 "use client";
 
 import ReportsTable from "@/components/reports/ReportsTable";
-import { Report, ReportResponse } from "@/components/user_page/reports/types";
+import { ReportResponse } from "@/components/user_page/reports/types";
 
-export default function PostReportsData({
+export default function ReviewReportsData({
     data,
     page,
-    postUuid,
+    reviewUuid,
 }: {
     data?: ReportResponse | null;
     page: number;
-    postUuid: string;
+    reviewUuid: string;
 }) {
     return (
         <ReportsTable
@@ -18,7 +18,7 @@ export default function PostReportsData({
             pages={data?.pages || 1}
             page={page}
             getPageLink={(page) =>
-                `/dashboard/posts/${postUuid}/reports/?page=${page}`
+                `/dashboard/reviews/${reviewUuid}/reports/?page=${page}`
             }
         />
     );

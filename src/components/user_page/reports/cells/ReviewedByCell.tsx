@@ -10,6 +10,6 @@ export default function ReviewedByCell({ row }: CellContext<Report, any>) {
             @{row.original.reviewed_by_user!.username}
         </Link>
     ) : (
-        <span>N/A</span>
+        <div className="text-muted-foreground">N/A</div>
     );
 }

@@ -12,6 +12,7 @@ import { bigintToInt } from "@/utils/utils";
 export interface ReportProps {
     userUuid?: string;
     postUuid?: string;
+    reviewUuid?: string;
     reportId?: number;
     page: number;
     itemsPerPage?: number;
@@ -22,6 +23,7 @@ export async function getReports({
     contentType,
     userUuid,
     postUuid,
+    reviewUuid,
     reportId,
     page,
     itemsPerPage = 10,
@@ -41,9 +43,7 @@ export async function getReports({
             }
 
             contentId = user.id;
-        }
-
-        if (contentType == ReportContentType.POST) {
+        } else if (contentType == ReportContentType.POST) {
             const post = await db.posts.findUnique({
                 where: {
                     uuid: postUuid!,
@@ -55,6 +55,18 @@ export async function getReports({
             }
 
             contentId = post.id;
+        } else if (contentType == ReportContentType.REVIEW) {
+            const review = await db.reviews.findUnique({
+                where: {
+                    uuid: reviewUuid!,
+                },
+            });
+
+            if (!review) {
+                return null;
+            }
+
+            contentId = review.id;
         }
 
         const reports = await db.user_reports.findMany({

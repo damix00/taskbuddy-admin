@@ -33,10 +33,10 @@ export default function ReviewCard({ review }: { review: Review }) {
                         </div>
                         ·
                         <div className="flex text-sm">
-                            As{" "}
+                            Was the{" "}
                             {review.type == ReviewType.EMPLOYER
-                                ? "employee"
-                                : "employer"}
+                                ? "employer"
+                                : "employee"}
                         </div>
                     </div>
                 </CardHeader>

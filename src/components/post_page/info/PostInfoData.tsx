@@ -128,7 +128,7 @@ export default function PostInfoData() {
                     <CarouselContent>
                         {post.media.map((media, index) => (
                             <img
-                                className="w-fit h-fit"
+                                className="w-fit h-fit object-contain"
                                 key={index}
                                 src={media.media}
                             />

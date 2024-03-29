@@ -3,7 +3,7 @@ import ContentLayout from "@/components/display/content/ContentLayout";
 import ContentSubNav, {
     NavItem,
 } from "@/components/display/content/ContentSubNav";
-import SessionData from "@/components/session_page/SessionData.server";
+import SessionData from "@/components/session_page/SessionData_server";
 import { SessionContextProvider } from "@/context/session_context";
 import { Eye, Pen } from "lucide-react";
 import { Suspense } from "react";

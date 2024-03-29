@@ -2,7 +2,7 @@ import { PageContent, TopBar, TopBarTitle } from "@/components/nav/TopBar";
 import { Separator } from "@/components/ui/separator";
 import UserSearchField from "@/components/users/filters/SearchField";
 import UserTable from "@/components/users/UserTable";
-import UserData from "@/components/users/Users.server";
+import UserData from "@/components/users/Users_server";
 import { Suspense } from "react";
 import { useParams } from "next/navigation";
 

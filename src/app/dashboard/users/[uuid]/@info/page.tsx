@@ -1,5 +1,5 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
-import ProfileInfo from "@/components/user_page/info/ProfileInfo.server";
+import ProfileInfo from "@/components/user_page/info/ProfileInfo_server";
 import ProfileInfoSkeleton from "@/components/user_page/info/ProfileInfoSkeleton";
 import { Suspense } from "react";
 

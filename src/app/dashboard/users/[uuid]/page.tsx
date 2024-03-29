@@ -1,7 +1,7 @@
 import CardSkeleton from "@/components/display/CardSkeleton";
 import { Separator } from "@/components/ui/separator";
-import LastSession from "@/components/user_page/overview/LastSession.server";
-import UserMetrics from "@/components/user_page/overview/UserMetrics.server";
+import LastSession from "@/components/user_page/overview/LastSession_server";
+import UserMetrics from "@/components/user_page/overview/UserMetrics_server";
 import { Suspense } from "react";
 
 export default function Page({

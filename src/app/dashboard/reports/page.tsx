@@ -1,6 +1,6 @@
 import CardSkeleton from "@/components/display/CardSkeleton";
 import { PageContent, TopBar, TopBarTitle } from "@/components/nav/TopBar";
-import Reports from "@/components/reports/Reports.server";
+import Reports from "@/components/reports/Reports_server";
 import { Suspense } from "react";
 
 export default function ReportsPage({

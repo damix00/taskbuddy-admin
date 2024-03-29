@@ -1,4 +1,4 @@
-import PostReports from "@/components/post_page/reports/PostReports.server";
+import PostReports from "@/components/post_page/reports/PostReports_server";
 
 export default function PostReportsPage({
     params,

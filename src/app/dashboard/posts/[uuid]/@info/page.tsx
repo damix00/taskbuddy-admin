@@ -1,4 +1,4 @@
-import PostInfo from "@/components/post_page/info/PostInfo.server";
+import PostInfo from "@/components/post_page/info/PostInfo_server";
 import PostInfoSkeleton from "@/components/post_page/info/PostInfoSkeleton";
 import { Suspense } from "react";
 

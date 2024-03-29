@@ -1,5 +1,5 @@
 import CardSkeleton from "@/components/display/CardSkeleton";
-import UserReports from "@/components/user_page/reports/UserReports.server";
+import UserReports from "@/components/user_page/reports/UserReports_server";
 import { Suspense } from "react";
 
 export default function UserReportsPage({

@@ -1,5 +1,5 @@
 import CardSkeleton from "@/components/display/CardSkeleton";
-import ReportServer from "@/components/report_page/Report.server";
+import ReportServer from "@/components/report_page/Report_server";
 import { ReportContextProvider } from "@/context/report_context";
 import { Suspense } from "react";
 

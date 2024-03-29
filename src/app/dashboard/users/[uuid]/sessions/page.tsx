@@ -1,5 +1,5 @@
 import CardSkeleton from "@/components/display/CardSkeleton";
-import SessionsTable from "@/components/user_page/sessions/SessionsTable.server";
+import SessionsTable from "@/components/user_page/sessions/SessionsTable_server";
 import { Suspense } from "react";
 
 export default function UserSessions({

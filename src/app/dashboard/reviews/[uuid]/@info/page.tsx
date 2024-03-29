@@ -1,4 +1,4 @@
-import ReviewInfo from "@/components/review_page/info/ReviewInfo.server";
+import ReviewInfo from "@/components/review_page/info/ReviewInfo_server";
 import ReviewInfoSkeleton from "@/components/review_page/info/ReviewInfoSkeleton";
 import { Suspense } from "react";
 

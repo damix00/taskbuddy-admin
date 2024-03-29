@@ -3,7 +3,6 @@
 import { db } from "@/lib/database/prisma";
 
 import AnalyticsData from "./data";
-import { sleep } from "@/utils/utils";
 
 async function getData(): Promise<{
     charts?: {

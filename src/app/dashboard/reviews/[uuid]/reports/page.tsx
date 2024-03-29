@@ -1,4 +1,4 @@
-import ReviewReports from "@/components/review_page/reports/ReviewReports.server";
+import ReviewReports from "@/components/review_page/reports/ReviewReports_server";
 
 export default function ReviewReportsPage({
     params,

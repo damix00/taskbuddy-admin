@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import Analytics from "./Analytics.server";
+import Analytics from "./Analytics_server";
 import { PageContent, TopBar, TopBarTitle } from "@/components/nav/TopBar";
 import AnalyticsData from "./data";
 

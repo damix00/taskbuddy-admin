@@ -4,12 +4,15 @@ import {
     ReportContentType,
     ReportResponse,
 } from "@/components/user_page/reports/types";
+import { UserCookie } from "@/hooks/use_user";
+import { auth } from "@/lib/auth/auth";
 import { db } from "@/lib/database/prisma";
 import { bigintToInt } from "@/utils/utils";
 
 export interface ReportProps {
     userUuid?: string;
     postUuid?: string;
+    reportId?: number;
     page: number;
     itemsPerPage?: number;
     contentType?: ReportContentType;
@@ -19,6 +22,7 @@ export async function getReports({
     contentType,
     userUuid,
     postUuid,
+    reportId,
     page,
     itemsPerPage = 10,
 }: ReportProps): Promise<ReportResponse | null> {
@@ -57,6 +61,7 @@ export async function getReports({
             where: {
                 content_id: contentId ?? undefined,
                 content_type: contentType,
+                id: reportId ? reportId : undefined,
             },
             orderBy: {
                 created_at: "desc",
@@ -73,6 +78,7 @@ export async function getReports({
             where: {
                 content_id: contentId ?? undefined,
                 content_type: contentType ?? undefined,
+                id: reportId ? reportId : undefined,
             },
         });
 
@@ -126,5 +132,40 @@ export async function getReports({
     } catch (error) {
         console.error(error);
         return null;
+    }
+}
+
+export async function updateReport({
+    reportId,
+    verdict,
+}: {
+    reportId: number;
+    verdict: boolean;
+}): Promise<boolean> {
+    const user = await auth();
+
+    if (!user) {
+        return false;
+    }
+
+    const userData = user!.user as UserCookie["user"];
+
+    try {
+        await db.user_reports.update({
+            where: {
+                id: reportId,
+            },
+            data: {
+                reviewed: true,
+                verdict,
+                reviewed_by: userData!.user_id,
+                updated_at: new Date(),
+            },
+        });
+
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
     }
 }

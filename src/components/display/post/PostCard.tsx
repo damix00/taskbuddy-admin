@@ -24,6 +24,33 @@ function Interaction({ icon, count }: { icon: any; count: any }) {
     );
 }
 
+export function PostInteractions({ post }: { post: Post }) {
+    return (
+        <div className="flex justify-between w-full gap-2">
+            <Interaction
+                icon={<Heart className="w-4 h-4" />}
+                count={post.post_interactions.likes}
+            />
+            <Interaction
+                icon={<MessageSquare className="w-4 h-4" />}
+                count={post.post_interactions.comments}
+            />
+            <Interaction
+                icon={<Bookmark className="w-4 h-4" />}
+                count={post.post_interactions.bookmarks}
+            />
+            <Interaction
+                icon={<Share className="w-4 h-4" />}
+                count={post.post_interactions.shares}
+            />
+            <Interaction
+                icon={<Eye className="w-4 h-4" />}
+                count={post.post_interactions.impressions}
+            />
+        </div>
+    );
+}
+
 export default function PostCard({ post }: { post: Post }) {
     return (
         <Link href={`/dashboard/posts/${post.uuid}`}>
@@ -64,28 +91,7 @@ export default function PostCard({ post }: { post: Post }) {
                             orientation="horizontal"
                             className="w-full"
                         />
-                        <div className="flex justify-between w-full gap-2">
-                            <Interaction
-                                icon={<Heart className="w-4 h-4" />}
-                                count={post.post_interactions.likes}
-                            />
-                            <Interaction
-                                icon={<MessageSquare className="w-4 h-4" />}
-                                count={post.post_interactions.comments}
-                            />
-                            <Interaction
-                                icon={<Bookmark className="w-4 h-4" />}
-                                count={post.post_interactions.bookmarks}
-                            />
-                            <Interaction
-                                icon={<Share className="w-4 h-4" />}
-                                count={post.post_interactions.shares}
-                            />
-                            <Interaction
-                                icon={<Eye className="w-4 h-4" />}
-                                count={post.post_interactions.impressions}
-                            />
-                        </div>
+                        <PostInteractions post={post} />
                     </ScrollArea>
                 </CardFooter>
             </Card>

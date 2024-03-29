@@ -13,8 +13,8 @@ import {
 function DataItem({ label, value }: { label: string; value: string }) {
     return (
         <div className="flex flex-row justify-between gap-4">
-            <div>{label}</div>
-            <div className="text-muted-foreground">{value}</div>
+            <div className="text-sm">{label}</div>
+            <div className="text-sm text-muted-foreground">{value}</div>
         </div>
     );
 }

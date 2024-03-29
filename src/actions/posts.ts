@@ -8,11 +8,13 @@ export async function getPosts({
     last,
     take = 10,
     search = "",
+    postUuid,
 }: {
     userUuid?: string;
     last?: number;
     take?: number;
     search?: string;
+    postUuid?: string;
 }): Promise<Post[] | null> {
     try {
         let uid = null;
@@ -38,6 +40,7 @@ export async function getPosts({
             take,
             skip: last ? 1 : 0,
             where: {
+                uuid: postUuid ? postUuid : undefined,
                 user_id: uid ? uid : undefined,
                 title:
                     search.length > 0

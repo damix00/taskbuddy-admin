@@ -18,7 +18,6 @@ export default async function Layout({
             <div className="flex flex-col lg:flex-row lg:max-h-screen">
                 <div>{info}</div>
                 <div className="flex flex-col w-full lg:max-h-screen">
-                    {/* @ts-ignore */}
                     <UserNavbar uuid={uuid} />
                     <div className="lg:pt-14 lg:overflow-y-auto">
                         {children}

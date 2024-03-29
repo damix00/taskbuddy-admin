@@ -76,13 +76,11 @@ export default function ReportsTable({
     reports,
     pages,
     page,
-    uuid,
     getPageLink,
 }: {
     reports: Report[];
     pages: number;
     page: number;
-    uuid: string;
     getPageLink: (page: number) => string;
 }) {
     const table = memoize(

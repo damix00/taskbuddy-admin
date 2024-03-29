@@ -31,6 +31,11 @@ export default function PostNavbar({ uuid }: { uuid: string }) {
             <NavbarLink href={`/dashboard/posts/${uuid}`} uuid={uuid}>
                 Overview
             </NavbarLink>
+            <NavbarLink
+                href={`/dashboard/posts/${uuid}/information`}
+                uuid={uuid}>
+                Information
+            </NavbarLink>
             <NavbarLink href={`/dashboard/posts/${uuid}/reports`} uuid={uuid}>
                 Reports
             </NavbarLink>

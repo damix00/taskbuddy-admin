@@ -109,3 +109,30 @@ export async function flagPost({
         return false;
     }
 }
+
+export async function updatePostInfo({
+    uuid,
+    title,
+    description,
+}: {
+    uuid: string;
+    title: string;
+    description: string;
+}): Promise<boolean> {
+    try {
+        const post = await db.posts.update({
+            where: {
+                uuid,
+            },
+            data: {
+                title,
+                description,
+            },
+        });
+
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}

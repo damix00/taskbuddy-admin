@@ -17,6 +17,7 @@ import { Card } from "@/components/ui/card";
 import VerdictCell from "./cells/VerdictCell";
 import ReasonCell from "./cells/ReasonCell";
 import ActionsCell from "./cells/ActionsCell";
+import ReportsTable from "@/components/reports/ReportsTable";
 
 const columns: ColumnDef<Report>[] = [
     {
@@ -69,44 +70,18 @@ const columns: ColumnDef<Report>[] = [
     },
 ];
 
-export default function UserReportsTable({
-    reports,
-    pages,
-    page,
-    uuid,
-}: {
+export default function UserReportsTable(props: {
     reports: Report[];
     pages: number;
     page: number;
     uuid: string;
 }) {
-    const getPageLink = (page: number) =>
-        `/dashboard/users/${uuid}/reports/?page=${page}`;
-
-    const table = memoize(
-        () =>
-            useReactTable({
-                columns,
-                data: reports,
-                getCoreRowModel: getCoreRowModel(),
-            }),
-        [reports]
-    );
-
     return (
-        <Card>
-            <CustomTable columns={columns} table={table} />
-            {pages > 1 && (
-                <PaginateTable
-                    pages={pages}
-                    page={page}
-                    nextHref={getPageLink(page + 1)}
-                    prevHref={getPageLink(page - 1)}
-                    currentHref={getPageLink(page)}
-                    lastHref={getPageLink(pages)}
-                    firstHref={getPageLink(1)}
-                />
-            )}
-        </Card>
+        <ReportsTable
+            {...props}
+            getPageLink={(page: number) =>
+                `/dashboard/users/${props.uuid}/reports/?page=${page}`
+            }
+        />
     );
 }

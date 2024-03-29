@@ -14,7 +14,7 @@ export default function UserReportsPage({
         <div className="p-4">
             <Suspense fallback={<CardSkeleton />}>
                 <UserReports
-                    uuid={params.uuid}
+                    userUuid={params.uuid}
                     page={parseInt((searchParams.page as string) || "1")}
                 />
             </Suspense>

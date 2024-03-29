@@ -144,6 +144,10 @@ export default function PostInfoData() {
             <InfoLabel label="Post type" value={postType} />
             <InfoLabel label="Price" value={`€${post.price}`} />
             <InfoLabel
+                label="Remote"
+                value={post.post_location.remote ? "Yes" : "No"}
+            />
+            <InfoLabel
                 label="Start date"
                 value={post.start_date.toDateString()}
             />

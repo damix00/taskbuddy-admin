@@ -7,7 +7,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { Review } from "@/components/user_page/reviews/types";
+import { Review, ReviewType } from "@/components/user_page/reviews/types";
 import Link from "next/link";
 
 export default function ReviewCard({ review }: { review: Review }) {
@@ -26,9 +26,18 @@ export default function ReviewCard({ review }: { review: Review }) {
                             {review.description}
                         </CardDescription>
                     </div>
-                    <div className="flex items-center text-sm">
-                        <div className="mr-2">{review.rating}/5</div>
-                        <div className="text-muted-foreground">Rating</div>
+                    <div className="flex flex-row items-center gap-2">
+                        <div className="flex items-center text-sm">
+                            <div className="mr-2">{review.rating}/5</div>
+                            <div className="text-muted-foreground">Rating</div>
+                        </div>
+                        ·
+                        <div className="flex text-sm">
+                            As{" "}
+                            {review.type == ReviewType.EMPLOYER
+                                ? "employee"
+                                : "employer"}
+                        </div>
                     </div>
                 </CardHeader>
             </Card>

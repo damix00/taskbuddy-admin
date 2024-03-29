@@ -3,8 +3,6 @@ import { Report } from "../types";
 import Link from "next/link";
 
 export default function ReportedByCell({ row }: CellContext<Report, any>) {
-    console.log(row.original);
-
     return row.original.created_by_user ? (
         <Link
             className="link"

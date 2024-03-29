@@ -29,36 +29,37 @@ export default function ActionsCell({ row }: CellContext<Report, any>) {
                 <DropdownMenuLabel>Report</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 {row.original.content_type != ReportContentType.ACCOUNT && (
-                    <DropdownMenuItem className="gap-4">
-                        Open content
-                        <DropdownMenuShortcut
-                            onClick={async () => {
-                                const type = row.original.content_type;
+                    <DropdownMenuItem
+                        className="gap-4"
+                        onClick={async () => {
+                            const type = row.original.content_type;
 
-                                if (type == ReportContentType.POST) {
-                                    const uuid = await getPostUuid(
-                                        row.original.content_id
+                            if (type == ReportContentType.POST) {
+                                const uuid = await getPostUuid(
+                                    row.original.content_id
+                                );
+
+                                if (uuid) {
+                                    window.open(
+                                        `/dashboard/posts/${uuid}`,
+                                        "_blank"
                                     );
-
-                                    if (uuid) {
-                                        window.open(
-                                            `/dashboard/posts/${uuid}`,
-                                            "_blank"
-                                        );
-                                    }
-                                } else if (type == ReportContentType.REVIEW) {
-                                    const reviewUuid = await getReviewUuid(
-                                        row.original.content_id
-                                    );
-
-                                    if (reviewUuid) {
-                                        window.open(
-                                            `/dashboard/reviews/${reviewUuid}`,
-                                            "_blank"
-                                        );
-                                    }
                                 }
-                            }}>
+                            } else if (type == ReportContentType.REVIEW) {
+                                const reviewUuid = await getReviewUuid(
+                                    row.original.content_id
+                                );
+
+                                if (reviewUuid) {
+                                    window.open(
+                                        `/dashboard/reviews/${reviewUuid}`,
+                                        "_blank"
+                                    );
+                                }
+                            }
+                        }}>
+                        Open content
+                        <DropdownMenuShortcut>
                             <ExternalLink className="w-4 h-4" />
                         </DropdownMenuShortcut>
                     </DropdownMenuItem>

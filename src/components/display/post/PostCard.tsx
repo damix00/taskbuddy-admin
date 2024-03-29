@@ -31,10 +31,11 @@ export function PostInteractions({ post }: { post: Post }) {
                 icon={<Heart className="w-4 h-4" />}
                 count={post.post_interactions.likes}
             />
-            <Interaction
+            {/* Disable comments for now */}
+            {/* <Interaction
                 icon={<MessageSquare className="w-4 h-4" />}
                 count={post.post_interactions.comments}
-            />
+            /> */}
             <Interaction
                 icon={<Bookmark className="w-4 h-4" />}
                 count={post.post_interactions.bookmarks}

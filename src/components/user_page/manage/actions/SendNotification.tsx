@@ -33,6 +33,12 @@ export default function SendNotification() {
                 },
                 {
                     initialValue: "",
+                    label: "URL (optional)",
+                    type: "text",
+                    placeholder: "e.g. https://example.com",
+                },
+                {
+                    initialValue: "",
                     label: "Image (optional)",
                     type: "text",
                     placeholder: "e.g. https://example.com/image.jpg",
@@ -44,7 +50,8 @@ export default function SendNotification() {
                     userId: context!.user!.user.id,
                     title: data[0],
                     body: data[1],
-                    image: data[2],
+                    url: data[2],
+                    image: data[3],
                 });
 
                 if (!res) {

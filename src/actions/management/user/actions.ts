@@ -118,11 +118,13 @@ export async function sendNotification({
     userId,
     title,
     body,
+    url,
     image,
 }: {
     userId: number;
     title: string;
     body: string;
+    url?: string;
     image?: string;
 }): Promise<boolean> {
     try {
@@ -143,11 +145,17 @@ export async function sendNotification({
 
         const messaging = admin.messaging();
 
+        const data: { [key: string]: string } = {
+            title,
+            body,
+        };
+
+        if (url) {
+            data["url"] = url;
+        }
+
         const r = await messaging.sendEachForMulticast({
-            data: {
-                title,
-                body,
-            },
+            data,
             notification: {
                 title,
                 body,
